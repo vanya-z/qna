@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :load_answer, only: [:update]
+  before_action :load_answer, only: [:update, :destroy]
 
   def create
     @answer = Answer.new(answer_params)
@@ -11,17 +11,22 @@ class AnswersController < ApplicationController
   end
 
   def update
-  	if @answer.update(answer_params)
-  	  redirect_to @answer.question
-  	else
-  	  render 'questions/show'
-  	end
+    if @answer.update(answer_params)
+      redirect_to @answer.question
+    else
+      render 'questions/show'
+    end
+  end
+
+  def destroy
+    @answer.destroy
+    redirect_to @answer.question
   end
 
   private
 
   def load_answer
-  	@answer = Answer.find(params[:id])
+    @answer = Answer.find(params[:id])
   end
 
   def answer_params

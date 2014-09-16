@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
   let(:question) { create(:question) }
-  let(:answer) { create(:answer, question_id: question) }
+  let(:answer) { create(:answer) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -36,7 +36,7 @@ RSpec.describe AnswersController, :type => :controller do
       end
 
       it 'changes answer attributes' do
-        patch :update, id: answer, answer: {body: 'new body', question_id: question}
+        patch :update, id: answer, answer: { body: 'new body', question_id: question }
         answer.reload
         expect(answer.body).to eq 'new body'
       end
@@ -48,7 +48,7 @@ RSpec.describe AnswersController, :type => :controller do
     end
 
     context 'invalid attributes' do
-      before { patch :update, id: answer, answer: {body: nil, question_id: question} }
+      before { patch :update, id: answer, answer: { body: nil, question_id: question } }
 
       it 'does not change answer attributes' do
         answer.reload
@@ -58,6 +58,19 @@ RSpec.describe AnswersController, :type => :controller do
       it 're-renders question view' do
         expect(response).to render_template 'questions/show'
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    before { answer }
+
+    it 'deletes answer' do
+      expect { delete :destroy, id: answer }.to change(Answer, :count).by(-1)
+    end
+
+    it 'redirect to question view' do
+      delete :destroy, id: answer
+      expect(response).to redirect_to answer.question
     end
   end
 end
