@@ -38,6 +38,8 @@ group :test do
 end
 
 gem 'slim-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'simple_form'
 gem 'devise'
 
 # Use ActiveModel has_secure_password
