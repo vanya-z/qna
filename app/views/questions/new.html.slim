@@ -1,4 +1,4 @@
-= simple_form_for @question do |f|
+= simple_form_for @question, defaults: { input_html: { class: 'form-control' } } do |f|
   = f.input :title
   = f.input :body
   = f.button :submit
