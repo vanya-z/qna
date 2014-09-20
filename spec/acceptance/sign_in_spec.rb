@@ -18,7 +18,7 @@ feature 'Siging in', %q{
     visit new_user_session_path
     fill_in 'Email', with: 'wrong@user.com'
     fill_in 'Password', with: '12345'
-    click_on 'Log in'
+    click_button 'Log in'
 
     expect(page).to have_content 'Invalid email address or password.'
   end

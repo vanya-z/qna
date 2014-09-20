@@ -7,7 +7,11 @@ html
     = csrf_meta_tags
   body
     = render 'layouts/navbar'
-    p.notice= notice
-    p.alert= alert
     div.container
-      = yield
+      .row
+        .col-md-9
+          - flash.each do |name, msg|
+            .alert.alert-dismissable class="alert-#{ {notice: 'success', info: 'info', alert: 'warning'}[name.to_sym] || 'danger' }"
+              a.close data-dismiss="alert" &times
+              = msg
+          = yield

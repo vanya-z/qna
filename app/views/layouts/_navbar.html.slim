@@ -1,4 +1,4 @@
-nav.navbar.navbar-default role="navigation" 
+nav.navbar.navbar-inverse role="navigation" 
   .container
     /! Brand and toggle get grouped for better mobile display
     .navbar-header
@@ -7,34 +7,18 @@ nav.navbar.navbar-default role="navigation"
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      = link_to "QnA", root_path, class: 'navbar-brand'
-    /! Collect the nav links, forms, and other content for toggling
+      = link_to "QnA Sample", root_path, class: 'navbar-brand'
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li.active
-          a href="#"  Link
-        li
-          a href="#"  Link
-      form.navbar-form.navbar-left role="search" 
+      form.navbar-form.navbar-right role="search" 
         .form-group
           input.form-control placeholder="Search" type="text" 
-        button.btn.btn-default type="submit"  Submit
       ul.nav.navbar-nav.navbar-right
-        li
-          a href="#"  Link
-        li.dropdown
-          a.dropdown-toggle data-toggle="dropdown" href="#" 
-            | Dropdown
-            span.caret
-          ul.dropdown-menu role="menu" 
-            li
-              a href="#"  Action
-            li
-              a href="#"  Another action
-            li
-              a href="#"  Something else here
-            li.divider
-            li
-              a href="#"  Separated link
-    /! /.navbar-collapse
-  /! /.container-fluid
+        - unless signed_in?
+          li
+            = link_to 'Sign up', new_user_registration_path
+          li
+            = link_to 'Log in', new_user_session_path
+        - else
+          p.navbar-text Signed in as #{link_to "#{current_user.email}", edit_user_registration_path}
+          li
+            = link_to 'Log out', destroy_user_session_path, method: :delete
