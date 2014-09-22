@@ -5,7 +5,6 @@ RSpec.describe QuestionsController, :type => :controller do
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2) }
-
     before { get :index }
 
     it 'populates an array of all questions' do
@@ -30,28 +29,45 @@ RSpec.describe QuestionsController, :type => :controller do
   end
 
   describe 'GET #new' do
-    login_user
-    before { get :new }
+    context 'authenticated user' do
+      login_user
+      before { get :new }
 
-    it 'assigns a new Question to @question' do
-      expect(assigns(:question)).to be_a_new(Question)
+      it 'assigns a new Question to @question' do
+        expect(assigns(:question)).to be_a_new(Question)
+      end
+
+      it 'renders new view' do
+        expect(response).to render_template :new
+      end
     end
+    context 'non-authenticated user' do
+      before { get :new }
 
-    it 'renders new view' do
-      expect(response).to render_template :new
+      it 'redirects to new_user_session_url' do
+        expect(response).to redirect_to new_user_session_url
+      end
     end
   end
 
   describe 'GET #edit' do
-    login_user
-    before { get :edit, id: question }
+    context 'authenticated user' do
+      login_user
+      before { get :edit, id: question }
 
-    it 'assigns the requested question to @question' do
-      expect(assigns(:question)).to eq question
+      it 'assigns the requested question to @question' do
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'renders edit view' do
+        expect(response).to render_template :edit
+      end
     end
-
-    it 'renders edit view' do
-      expect(response).to render_template :edit
+    context 'non-authenticated user' do
+      before { get :edit, id: question }
+      it 'redirects to new_user_session_url' do
+        expect(response).to redirect_to new_user_session_url
+      end
     end
   end
 
@@ -126,7 +142,7 @@ RSpec.describe QuestionsController, :type => :controller do
 
     it 'redirect to index view' do
       delete :destroy, id: question
-      expect(response).to redirect_to questions_path
+      expect(response).to redirect_to questions_url
     end
   end
 end
