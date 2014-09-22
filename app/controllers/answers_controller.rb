@@ -1,18 +1,19 @@
 class AnswersController < ApplicationController
-  before_action :load_answer, only: [:update, :destroy]
+  before_action :load_question
+  before_action :load_answer, except: [:create]
 
   def create
-    @answer = Answer.new(answer_params)
+    @answer = @question.answers.new(answer_params)
     if @answer.save
-      redirect_to @answer.question
+      redirect_to @question
     else
       render 'questions/show'
     end
   end
 
-  def update
+  def update    
     if @answer.update(answer_params)
-      redirect_to @answer.question
+      redirect_to @question
     else
       render 'questions/show'
     end
@@ -20,10 +21,14 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-    redirect_to @answer.question
+    redirect_to @question
   end
 
   private
+
+  def load_question
+    @question = Question.find(params[:question_id])
+  end
 
   def load_answer
     @answer = Answer.find(params[:id])

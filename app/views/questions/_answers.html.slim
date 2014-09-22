@@ -1,0 +1,8 @@
+- question.answers.each do |answer|
+  - if answer.persisted?
+    .answer id="answer-#{answer.id}"
+      p = answer.body
+      = simple_form_for [question, answer], defaults: { input_html: { class: 'form-control', id: "edit-answer-#{answer.id}" } } do |f|
+        = f.input :body, error_html: { id: 'password_error'}
+        = f.error :body, id: "error-answer-#{answer.id}"
+        = f.button :submit, 'Update'
