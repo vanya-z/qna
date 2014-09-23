@@ -4,7 +4,8 @@ p = @question.body
   = link_to 'edit question', edit_question_path(@question)
   = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }
 = render 'questions/answers', question: @question
-h3 Your answer
-= simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } } do |f|
-  = f.input :body
-  = f.button :submit, 'Create'
+- if signed_in?
+  h3 Your answer
+  = simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } } do |f|
+    = f.input :body
+    = f.button :submit, 'Create'
