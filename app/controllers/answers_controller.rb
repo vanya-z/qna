@@ -4,12 +4,7 @@ class AnswersController < ApplicationController
   before_action :load_answer, except: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params)
-    if @answer.save
-      redirect_to @question
-    else
-      render 'questions/show'
-    end
+    @question.answers.create(answer_params)
   end
 
   def update    
