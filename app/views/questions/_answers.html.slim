@@ -1,5 +1,4 @@
 - @question.answers.each do |answer|
   - if answer.persisted?
-    .panel.panel-default
+    .panel.panel-default  
       .panel-body = answer.body
-      .panel-footer.text-right created #{answer.created_at}    
