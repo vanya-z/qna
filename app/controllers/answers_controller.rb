@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_action :load_answer, except: [:create]
 
   def create
-    @question.answers.create(answer_params)
+    @answer = @question.answers.create(answer_params)
   end
 
   def update    
