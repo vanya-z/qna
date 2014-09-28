@@ -7,3 +7,8 @@ $(document).on 'ready page:load', ->
     $('#answer_body_' + answer_id).hide();
     $('form#edit_answer_' + answer_id).show()
     e.preventDefault();
+  $('.cancel-edit-answer-link').click (e) ->
+    answer_id = $(this).data('answerId')
+    $('#answer_body_' + answer_id).show();
+    $('form#edit_answer_' + answer_id).hide()
+    e.preventDefault();
