@@ -1,4 +1,9 @@
 - @question.answers.each do |answer|
   - if answer.persisted?
-    .panel.panel-default  
+    .panel.panel-default id="answer_body_#{answer.id}"
       .panel-body = answer.body
+      = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id } if signed_in?
+    = simple_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
+	  = f.input :body, label: false
+	  div id="edit_body_error_#{answer.id}" class="help-inline"
+	  = f.button :submit
