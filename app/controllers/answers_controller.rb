@@ -4,7 +4,9 @@ class AnswersController < ApplicationController
   before_action :load_answer, except: [:create]
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
+    @answer.save
   end
 
   def update    
