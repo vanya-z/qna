@@ -5,4 +5,9 @@
 <% else %>
   $('.answers').html('<%= j render 'questions/answers' %>');
   $('#answer_body').val('');
+  $('.edit-answer-link').click(function(e) {
+    $('#answer_body_<%= @answer.id %>').hide();
+    $('form#edit_answer_<%= @answer.id %>').show();
+    e.preventDefault();
+  });
 <% end %>
