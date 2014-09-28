@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy if @answer.user == current_user
+    @answer.destroy
   end
 
   private

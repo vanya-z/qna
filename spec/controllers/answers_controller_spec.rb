@@ -67,7 +67,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it 'does not change answer attributes' do
         answer.reload
-        expect(answer.body).to eq 'MyText'
+        expect(answer.body).to eq 'My answer'
       end
 
       it 'renders template update.js.erb' do
@@ -81,12 +81,12 @@ RSpec.describe AnswersController, :type => :controller do
     before { answer }
 
     it 'deletes answer' do
-      expect { delete :destroy, question_id: answer.question, id: answer }.to change(Answer, :count).by(-1)
+      expect { delete :destroy, question_id: answer.question, id: answer, format: :js }.to change(Answer, :count).by(-1)
     end
 
     it 'redirect to question view' do
-      delete :destroy, question_id: answer.question, id: answer
-      expect(response).to redirect_to answer.question
+      delete :destroy, question_id: answer.question, id: answer, format: :js
+      expect(response).to render_template :destroy
     end
   end
 end
