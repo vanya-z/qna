@@ -2,7 +2,9 @@
   - if answer.persisted?
     .panel.panel-default id="answer_body_#{answer.id}"
       .panel-body = answer.body
-      = link_to 'Edit', '', class: 'btn btn-link edit-answer-link', data: { answer_id: answer.id } if answer.user == current_user
+      - if answer.user == current_user
+        = link_to 'Edit', '', class: 'btn btn-link edit-answer-link', data: { answer_id: answer.id }
+        = link_to 'Delete', [@question, answer], method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
     = simple_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
 	  = f.input :body, label: false
 	  div id="edit_body_error_#{answer.id}" class="help-inline"

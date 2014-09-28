@@ -14,8 +14,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy
-    redirect_to @question
+    @answer.destroy if @answer.user == current_user
   end
 
   private
