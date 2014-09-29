@@ -5,7 +5,6 @@
   .panel-footer    
 	- if @question.user == current_user
 	  = link_to 'edit question', edit_question_path(@question), class: 'btn btn-link'
-  - if signed_in?
 	  = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'
 .answers
   = render 'answers'
