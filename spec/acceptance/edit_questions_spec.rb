@@ -16,14 +16,16 @@ feature 'Edit question', %q{
   end
 
   describe 'Authenticated user' do
-    scenario 'edits his question' do
+    scenario 'edits his question', js: true do
       sign_in(user)
 
       visit question_path(own_question)
       click_on 'edit question'
-      fill_in 'Title', with: 'New title'
-      fill_in 'Body', with: 'New body'
-      click_on 'Update Question'
+      within '.edit_question' do
+        fill_in 'Title', with: 'New title'
+        fill_in 'Body', with: 'New body'
+        click_on 'Update Question'
+      end
       expect(page).to have_content 'New title'
       expect(page).to have_content 'New body'
     end

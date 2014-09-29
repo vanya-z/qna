@@ -1,16 +1,16 @@
-.panel.panel-default
-  .panel-heading
-    h3.panel-title = @question.title
-  .panel-body = @question.body
-  .panel-footer    
-	- if @question.user == current_user
-	  = link_to 'edit question', edit_question_path(@question), class: 'btn btn-link'
-	  = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'
+.panel.panel-default.question
+  = render @question
+p = simple_form_for @question, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
+  #edit_question_error.text-danger
+  = f.input :title
+  = f.input :body
+  = f.button :submit
+  = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-question-link'
 .answers
   = render 'answers'
 - if signed_in?
   h3 Your answer
   = simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
     = f.input :body
-    #body_error.help-inline
+    #body_error.text-danger
     = f.button :submit, 'Create'

@@ -1,0 +1,7 @@
+.panel-heading
+  h3.panel-title = @question.title
+.panel-body = @question.body
+.panel-footer
+  - if @question.user == current_user
+    = link_to 'edit question', '', class: 'btn btn-link edit-question-link'
+    = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'
