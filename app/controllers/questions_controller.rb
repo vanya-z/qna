@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :load_question, only: [:show, :update, :destroy]
 
   def index
     @questions = Question.all
@@ -12,9 +12,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-  end
-
-  def edit
   end
 
   def create
@@ -33,7 +30,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_path, flash: {notice: 'Question was successfully deleted', info: 'Your are cool!', error: 'And so hoooot!'}
+    redirect_to questions_path, flash: {notice: 'Question was successfully deleted'}
   end
 
   private

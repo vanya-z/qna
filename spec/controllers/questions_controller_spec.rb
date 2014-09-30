@@ -49,28 +49,7 @@ RSpec.describe QuestionsController, :type => :controller do
       end
     end
   end
-
-  describe 'GET #edit' do
-    context 'authenticated user' do
-      login_user
-      before { get :edit, id: question }
-
-      it 'assigns the requested question to @question' do
-        expect(assigns(:question)).to eq question
-      end
-
-      it 'renders edit view' do
-        expect(response).to render_template :edit
-      end
-    end
-    context 'non-authenticated user' do
-      before { get :edit, id: question }
-      it 'redirects to new_user_session_url' do
-        expect(response).to redirect_to new_user_session_url
-      end
-    end
-  end
-
+  
   describe 'POST #create' do
     login_user
     context 'with valid attributes' do
