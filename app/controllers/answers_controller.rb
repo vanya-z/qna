@@ -17,6 +17,11 @@ class AnswersController < ApplicationController
     @answer.destroy
   end
 
+  def accept
+    @question.answers.update_all(is_accepted: false)
+    @answer.update(is_accepted: true)
+  end
+
   private
 
   def load_question

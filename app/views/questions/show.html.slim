@@ -12,5 +12,5 @@ p = simple_form_for @question, remote: true, defaults: { input_html: { class: 'f
   h3 Your answer
   = simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
     = f.input :body
-    #body_error.text-danger
+    #create_answer_error.text-danger
     = f.button :submit, 'Create'

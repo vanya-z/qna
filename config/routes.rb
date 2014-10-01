@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'questions#index'
   resources :questions, except: [:edit] do
-    resources :answers, only: [:create, :update, :destroy]
+    resources :answers, only: [:create, :update, :destroy] do
+      post 'accept', on: :member
+    end
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
