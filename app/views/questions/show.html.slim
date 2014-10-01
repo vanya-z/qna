@@ -8,7 +8,7 @@ p = simple_form_for @question, remote: true, defaults: { input_html: { class: 'f
   = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-question-link'
 .answers
   = render 'answers'
-- if signed_in?
+- if signed_in? && @question.user != current_user
   h3 Your answer
   = simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
     = f.input :body
