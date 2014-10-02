@@ -1,0 +1,13 @@
+$('.answers').html('<%= j render 'questions/answers' %>');
+$('.edit-answer-link').click(function(e) {
+  e.preventDefault();
+  answer_id = $(this).data('answerId');
+  $('#answer_body_' + answer_id).hide();
+  $('form#edit_answer_' + answer_id).show();
+});
+$('.cancel-edit-answer-link').click(function(e) {
+  e.preventDefault();
+  answer_id = $(this).data('answerId');
+  $('#answer_body_' + answer_id).show();
+  $('form#edit_answer_' + answer_id).hide();
+});

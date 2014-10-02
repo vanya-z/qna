@@ -21,6 +21,10 @@ class AnswersController < ApplicationController
     @answer.accept
   end
 
+  def discard
+    @answer.discard
+  end
+
   private
 
   def load_question

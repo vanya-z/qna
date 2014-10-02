@@ -10,4 +10,8 @@ class Answer < ActiveRecord::Base
     self.reload
     self.update(is_accepted: true)
   end
+
+  def discard
+  	self.update(is_accepted: false)
+  end
 end

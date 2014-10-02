@@ -8,7 +8,11 @@
       - if answer.user == current_user
         = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
         = link_to 'Delete', [@question, answer], method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
-      = link_to "#{ answer.is_accepted ? 'Discard': 'Accept' }", accept_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link' if @question.user == current_user
+      - if @question.user == current_user
+        - if answer.is_accepted?
+          = link_to 'Discard', discard_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
+        - else
+          = link_to 'Accept', accept_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
     = simple_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
 	  = f.input :body, label: false
 	  .text-danger id="edit_body_error_#{answer.id}"

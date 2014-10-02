@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'questions#index'
   resources :questions, except: [:edit] do
     resources :answers, only: [:create, :update, :destroy] do
-      post 'accept', on: :member
+      member do
+        post 'accept'
+        post 'discard'
+      end
     end
   end
   

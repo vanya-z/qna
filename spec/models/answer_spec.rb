@@ -14,15 +14,23 @@ RSpec.describe Answer, :type => :model do
     it 'sets the answer is_accepted true' do
       answer1.accept
       answer1.reload
-
       expect(answer1.is_accepted).to eq true
     end
 
     it 'sets other question\'s answers is_accepted false ' do
       answer1.accept
-      answer2.reload
-      
+      answer2.reload      
       expect(answer2.is_accepted).to eq false
+    end
+  end
+
+  describe 'discard' do
+    let(:answer) { create(:answer, is_accepted: true) }
+
+    it 'sets the answer is_accepted false' do
+      answer.discard
+      answer.reload
+      expect(answer.is_accepted).to eq false
     end
   end
 end

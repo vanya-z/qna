@@ -104,4 +104,19 @@ RSpec.describe AnswersController, :type => :controller do
       expect(response).to render_template :accept
     end
   end
+
+  describe 'POST #discard' do
+    login_user
+
+    it 'sets the answer is_accepted to false' do
+      post :discard, question_id: answer.question, id: answer, format: :js
+      answer.reload
+      expect(answer.is_accepted).to eq false
+    end
+
+    it 'renders template discard.js.erb' do
+      post :discard, question_id: answer.question, id: answer, format: :js
+      expect(response).to render_template :discard
+    end
+  end
 end
