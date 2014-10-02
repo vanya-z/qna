@@ -89,4 +89,19 @@ RSpec.describe AnswersController, :type => :controller do
       expect(response).to render_template :destroy
     end
   end
+
+  describe 'POST #accept' do
+    login_user
+
+    it 'sets the answer accepted' do
+      post :accept, question_id: answer.question, id: answer, format: :js
+      answer.reload
+      expect(answer.is_accepted).to eq true
+    end
+
+    it 'renders template accept.js.erb' do
+      post :accept, question_id: answer.question, id: answer, format: :js
+      expect(response).to render_template :accept
+    end
+  end
 end
