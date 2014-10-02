@@ -17,9 +17,8 @@ class AnswersController < ApplicationController
     @answer.destroy
   end
 
-  def accept
-    @question.answers.update_all(is_accepted: false)
-    @answer.update(is_accepted: true)
+  def accept    
+    @answer.accept
   end
 
   private

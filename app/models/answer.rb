@@ -4,4 +4,10 @@ class Answer < ActiveRecord::Base
   validates :body, presence: true
 
   default_scope { order('created_at') }
+
+  def accept
+    self.question.answers.update_all(is_accepted: false)
+    self.reload
+    self.update(is_accepted: true)
+  end
 end
