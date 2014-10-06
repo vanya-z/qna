@@ -1,6 +1,9 @@
 .panel-heading
   h3.panel-title = @question.title
-.panel-body = @question.body
+.panel-body
+  p= @question.body
+  - @question.attachments.each do |a|
+    li= link_to a.file.identifier, a.file.url
 .panel-footer
   - if @question.user == current_user
     = link_to 'edit question', '', class: 'btn btn-link edit-question-link'

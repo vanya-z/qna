@@ -5,6 +5,8 @@
         -if answer.is_accepted?
           span.glyphicon.glyphicon-ok.text-success
         = answer.body
+        - answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
       - if answer.user == current_user
         = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
         = link_to 'Delete', [@question, answer], method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }

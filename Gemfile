@@ -43,6 +43,9 @@ gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'simple_form'
 gem 'devise'
+gem 'carrierwave'
+gem 'remotipart'
+gem "nested_form"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

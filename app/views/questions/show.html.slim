@@ -1,6 +1,6 @@
 .panel.panel-default.question
   = render @question
-p = simple_form_for @question, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
+p = simple_nested_form_for @question, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
   #edit_question_error.text-danger
   = f.input :title
   = f.input :body
@@ -10,7 +10,11 @@ p = simple_form_for @question, remote: true, defaults: { input_html: { class: 'f
   = render 'answers'
 - if signed_in? && @question.user != current_user
   h3 Your answer
-  = simple_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
-    = f.input :body
+  = simple_nested_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
+    p = f.input :body
     #create_answer_error.text-danger
-    = f.button :submit, 'Create'
+    p = f.fields_for :attachments do |a|
+      = a.input :file, as: :file
+      = a.link_to_remove 'Remove'
+    p = f.link_to_add "Add file", :attachments
+    p = f.button :submit, 'Create'
