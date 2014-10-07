@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 # Use postgresql as the database for Active Record
@@ -37,6 +36,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem "codeclimate-test-reporter", require: nil
 end
 
 gem 'slim-rails'
@@ -46,6 +46,7 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem "nested_form"
+gem 'rubocop', require: false
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
