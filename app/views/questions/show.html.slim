@@ -13,7 +13,8 @@ p = simple_nested_form_for @question, remote: true, defaults: { input_html: { cl
   = simple_nested_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
     p = f.input :body
     #create_answer_error.text-danger
-    p = f.fields_for :attachments do |a|
+    p = f.simple_fields_for :attachments do |a|
+      = a.object
       = a.input :file, as: :file
       = a.link_to_remove 'Remove'
     p = f.link_to_add "Add file", :attachments

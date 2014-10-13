@@ -15,8 +15,19 @@
           = link_to 'Discard', discard_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
         - else
           = link_to 'Accept', accept_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
-    = simple_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
-	  = f.input :body, label: false
-	  .text-danger id="edit_body_error_#{answer.id}"
-	  = f.button :submit
-	  = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }
+    = simple_nested_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
+      = f.input :body, label: false
+      .text-danger id="edit_body_error_#{answer.id}"
+      p = f.simple_fields_for :attachments do |a|
+        - if a.object.persisted?
+          li
+            = link_to(a.object.file.identifier, a.object.file.url)
+            | &nbsp;
+            = a.link_to_remove 'remove', class: 'text-danger'
+        - elsif a.object.new_record?
+          = a.input :file, as: :file
+          = a.link_to_remove 'Remove'
+      p = f.link_to_add "Add file", :attachments
+      p
+        = f.button :submit
+        = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }

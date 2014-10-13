@@ -4,6 +4,7 @@
   <% end %>
 <% else %>
   $('.answers').html('<%= j render 'questions/answers' %>');
+  $('#create_answer_error').empty();
   $('#answer_body').val('');
   $(document).ready(ready);
   $(document).on('page:load', ready);

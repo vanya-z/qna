@@ -6,6 +6,7 @@
 <% else %>
   $('.question').html('<%= j render @question %>');
   $('.question').show();
+  $('#edit_question_error').empty();
   $('.edit_question').hide();
   $('.edit-question-link').click(function(e) {
     $('.question').hide();

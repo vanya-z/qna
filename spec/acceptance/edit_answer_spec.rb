@@ -30,6 +30,17 @@ feature 'Answer editing', %q{
         expect(page).to_not have_selector 'textarea'
       end
     end
+
+    scenario 'try to cancel editing his answer', js: true do
+      sign_in user
+      visit question_path(question_answered)
+      click_on 'Edit'
+      within '.answers' do
+        click_on 'Cancel'
+        expect(page).to have_content answer.body
+        expect(page).to_not have_selector 'textarea'
+      end
+    end
     
     scenario 'try to edit other user\'s answer' do
       sign_in user
