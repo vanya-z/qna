@@ -1,10 +1,17 @@
-.panel-heading
-  h3.panel-title = @question.title
-.panel-body
-  p= @question.body
-  - @question.attachments.each do |a|
-    li= link_to a.file.identifier, a.file.url
-.panel-footer
-  - if @question.user == current_user
-    = link_to 'edit question', '', class: 'btn btn-link edit-question-link'
-    = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'
+.panel.panel-default.question
+  .panel-heading
+    h3.panel-title = @question.title
+  .panel-body
+    p= @question.body
+    - @question.attachments.each do |a|
+      li= link_to a.file.identifier, a.file.url
+  .panel-footer
+    - if @question.user == current_user
+      = link_to 'edit question', '', class: 'btn btn-link edit-question-link'
+      = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'
+p = simple_nested_form_for @question, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
+  #edit_question_error.text-danger
+  = f.input :title
+  = f.input :body
+  = f.button :submit
+  = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-question-link'

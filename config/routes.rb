@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'questions#index'
-  resources :questions, except: [:edit] do
+  resources :questions, except: [:edit], shallow: true do
     resources :answers, only: [:create, :update, :destroy] do
       member do
         post 'accept'

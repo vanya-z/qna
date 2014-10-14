@@ -9,13 +9,13 @@
           li= link_to a.file.identifier, a.file.url
       - if answer.user == current_user
         = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
-        = link_to 'Delete', [@question, answer], method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
+        = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
       - if @question.user == current_user
         - if answer.is_accepted?
-          = link_to 'Discard', discard_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
+          = link_to 'Discard', discard_answer_path(answer), method: :post, remote: true, class: 'btn btn-link'
         - else
-          = link_to 'Accept', accept_question_answer_path(@question, answer), method: :post, remote: true, class: 'btn btn-link'
-    = simple_nested_form_for [@question, answer], remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
+          = link_to 'Accept', accept_answer_path(answer), method: :post, remote: true, class: 'btn btn-link'
+    = simple_nested_form_for answer, remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
       = f.input :body, label: false
       .text-danger id="edit_body_error_#{answer.id}"
       p = f.simple_fields_for :attachments do |a|
