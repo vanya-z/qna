@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'questions#index'
-  resources :questions, except: [:edit], shallow: true do
+
+  concern :commentable do
+    resources :comments
+  end
+
+  resources :questions, concerns: :commentable, except: [:edit], shallow: true do
     resources :answers, only: [:create, :update, :destroy] do
       member do
         post 'accept'
@@ -9,6 +14,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :answers, only: [], concerns: :commentable
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -14,8 +14,10 @@ feature 'Create answer', %q{
     scenario 'answers other user\'s question', js: true do
       sign_in(user)
       visit question_path(question)
-      fill_in 'Body', with: 'My answer body'
-      click_on 'Create'
+      within "form#new_answer" do
+        fill_in 'Body', with: 'My answer body'
+        click_on 'Create'
+      end
 
       expect(page).to have_content 'My answer body'
       expect(current_path).to eq question_path(question)

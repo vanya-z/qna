@@ -1,4 +1,6 @@
 = render 'question'
+.comments class="#{@question.class}#{@question.id}"
+  = render 'comments/comments', commentable: @question
 .answers
   = render 'answers'
 - if signed_in? && @question.user != current_user

@@ -1,0 +1,10 @@
+<% if @comment.errors.present? %>
+  <% @comment.errors.full_messages.each do |message| %>
+    $('.<%= @commentable.class %><%= @commentable.id %> #create_comment_error').html('<%= j message %>');
+  <% end %>
+<% else %>
+  $('.comments.<%= @commentable.class %><%= @commentable.id %>').html('<%= j render 'comments/comments', commentable: @commentable %>');
+  $('#create_comment_error_<%= @commentable.class %><%= @commentable.id %>').empty();
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
+<% end %>

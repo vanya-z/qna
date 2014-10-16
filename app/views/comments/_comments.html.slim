@@ -1,0 +1,9 @@
+table.table
+  - commentable.comments.each do |c|
+    tr
+      td = "#{c.body} - #{c.user.email}"
+- if signed_in?
+  = simple_form_for [commentable, Comment.new], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
+    p = f.input :body, label: "Your comment"
+    #create_comment_error.text-danger
+    p = f.button :submit, "Add comment"
