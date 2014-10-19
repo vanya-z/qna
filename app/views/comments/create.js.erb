@@ -3,7 +3,9 @@
     $('.<%= @commentable.class %><%= @commentable.id %> #create_comment_error').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('.comments.<%= @commentable.class %><%= @commentable.id %>').html('<%= j render 'comments/comments', commentable: @commentable %>');
+  <% publish_to "/question#{ @commentable.class == 'Question' ? @commentable.question.id : @commentable.id }" do %>
+    $('.comments.<%= @commentable.class %><%= @commentable.id %>').html('<%= j render 'comments/comments', commentable: @commentable %>');
+  <% end %>
   $('#create_comment_error_<%= @commentable.class %><%= @commentable.id %>').empty();
   $(document).ready(ready);
   $(document).on('page:load', ready);
