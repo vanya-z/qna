@@ -11,3 +11,4 @@
     p = f.simple_fields_for :attachments
     p = f.link_to_add "Add file", :attachments
     p = f.button :submit, 'Create'
+= subscribe_to "/question#{@question.id}"

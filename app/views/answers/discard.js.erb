@@ -1,3 +1,5 @@
-$('.answers').html('<%= j render 'questions/answers' %>');
+<% publish_to "/question#{@answer.question.id}" do %>
+  $('.answers').html('<%= j render 'questions/answers' %>');
+<% end %>
 $(document).ready(ready);
 $(document).on('page:load', ready);
