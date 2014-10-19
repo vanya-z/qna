@@ -8,14 +8,6 @@
   = simple_nested_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
     p = f.input :body
     #create_answer_error.text-danger
-    p = f.simple_fields_for :attachments do |a|
-      - if a.object.persisted?
-        li
-          = link_to(a.object.file.identifier, a.object.file.url)
-          | &nbsp;
-          = a.link_to_remove 'remove', class: 'text-danger'
-      - elsif a.object.new_record?
-        = a.input :file, as: :file
-        = a.link_to_remove 'Remove'
+    p = f.simple_fields_for :attachments
     p = f.link_to_add "Add file", :attachments
     p = f.button :submit, 'Create'

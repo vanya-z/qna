@@ -79,20 +79,20 @@ RSpec.describe QuestionsController, :type => :controller do
     login_user
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
-        patch :update, id: question, question: attributes_for(:question), format: :js
+        patch :update, id: question, question: attributes_for(:question)
         expect(assigns(:question)).to eq question
       end
 
       it 'changes question attributes' do
-        patch :update, id: question, question: { title: 'new title', body: 'new body'}, format: :js
+        patch :update, id: question, question: { title: 'new title', body: 'new body'}
         question.reload
         expect(question.title).to eq 'new title'
         expect(question.body).to eq 'new body'
       end
 
-      it 'renders template update.js.erb' do
-        patch :update, id: question, question: attributes_for(:question), format: :js
-        expect(response).to render_template :update
+      it 'redirects to question' do
+        patch :update, id: question, question: attributes_for(:question)
+        expect(response).to redirect_to question
       end
     end
 
@@ -105,8 +105,8 @@ RSpec.describe QuestionsController, :type => :controller do
         expect(question.body).to eq 'MyText'
       end
 
-      it 'renders template update.js.erb' do
-        expect(response).to render_template :update
+      it 're-renders template edit' do
+        expect(response).to render_template :edit
       end
     end
   end

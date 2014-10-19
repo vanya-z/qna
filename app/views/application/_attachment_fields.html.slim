@@ -1,0 +1,8 @@
+- if f.object.persisted?
+  li
+    = link_to(f.object.file.identifier, f.object.file.url)
+    | &nbsp;
+    = f.link_to_remove 'remove', class: 'text-danger'
+- elsif f.object.new_record?
+  = f.input :file, as: :file
+  = f.link_to_remove 'Remove'

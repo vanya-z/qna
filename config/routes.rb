@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :questions, concerns: :commentable, except: [:edit], shallow: true do
+  resources :questions, concerns: :commentable, shallow: true do
     resources :answers, only: [:create, :update, :destroy] do
       member do
         post 'accept'
