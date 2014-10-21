@@ -1,0 +1,7 @@
+.comments class="#{parent.class.to_s.downcase}-#{parent.id}"
+  = render parent.comments
+  - if signed_in?
+    = simple_form_for [parent, Comment.new], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
+      p = f.input :body, label: "Your comment"
+      #create_comment_error.text-danger
+      p = f.button :submit, "Add comment"

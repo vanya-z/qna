@@ -1,6 +1,6 @@
 <% if @comment.errors.present? %>
   <% @comment.errors.full_messages.each do |message| %>
-    $('.<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %> #create_comment_error').html('<%= j message %>');
+    $('.<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %> #edit_comment_body_error_<%= @comment.id %>').html('<%= j message %>');
   <% end %>
 <% else %>
   <% publish_to "/question#{ @comment.commentable_type.to_s == 'Question' ? @comment.commentable_id : @comment.commentable.question_id }" do %>
