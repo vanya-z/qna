@@ -153,6 +153,8 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     remotipart (1.2.1)
+    responders (1.1.1)
+      railties (>= 3.2, < 4.2)
     rspec-core (3.1.2)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.0)
@@ -262,6 +264,7 @@ DEPENDENCIES
   private_pub
   rails (= 4.1.5)
   remotipart
+  responders
   rspec-rails
   rubocop
   sass-rails (~> 4.0.3)

@@ -97,7 +97,7 @@ RSpec.describe QuestionsController, :type => :controller do
     end
 
     context 'invalid attributes' do
-      before { patch :update, id: question, question: { title: 'new title', body: nil}, format: :js }
+      before { patch :update, id: question, question: { title: 'new title', body: nil} }
 
       it 'does not change question attributes' do
         question.reload
