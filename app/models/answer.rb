@@ -11,9 +11,8 @@ class Answer < ActiveRecord::Base
   default_scope { order('created_at') }
 
   def accept
-    self.question.answers.update_all(is_accepted: false)
-    self.reload
-    self.update(is_accepted: true)
+    self.question.discard_questions
+    self.reload.update(is_accepted: true)
   end
 
   def discard

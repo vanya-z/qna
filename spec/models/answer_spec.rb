@@ -17,14 +17,12 @@ RSpec.describe Answer, :type => :model do
 
     it 'sets the answer is_accepted true' do
       answer1.accept
-      answer1.reload
-      expect(answer1.is_accepted).to eq true
+      expect(answer1.reload.is_accepted).to eq true
     end
 
     it 'sets other question\'s answers is_accepted false ' do
       answer1.accept
-      answer2.reload      
-      expect(answer2.is_accepted).to eq false
+      expect(answer2.reload.is_accepted).to eq false
     end
   end
 
@@ -33,8 +31,7 @@ RSpec.describe Answer, :type => :model do
 
     it 'sets the answer is_accepted false' do
       answer.discard
-      answer.reload
-      expect(answer.is_accepted).to eq false
+      expect(answer.reload.is_accepted).to eq false
     end
   end
 end

@@ -7,4 +7,8 @@ class Question < ActiveRecord::Base
   validates :title, :body, presence: true
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
+
+  def discard_questions
+    self.answers.update_all(is_accepted: false)
+  end
 end
