@@ -3,18 +3,19 @@ class CommentsController < ApplicationController
   before_action :load_comment, except: :create
   before_action :load_parent, only: :create
 
+  respond_to :js
+
   def create
-    @comment = @parent.comments.new(comment_params)
-    @comment.user = current_user
-    @comment.save
+    respond_with(@comment = @parent.comments.create(comment_params.merge(user_id: current_user.id)))
   end
 
   def update
     @comment.update(comment_params)
+    respond_with @comment
   end
 
   def destroy
-    @comment.destroy
+    respond_with(@comment.destroy)
   end
 
   private

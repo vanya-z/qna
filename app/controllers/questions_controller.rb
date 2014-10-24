@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    respond_with(@question = Question.create(question_params.merge(user_id: current_user)))
+    respond_with(@question = Question.create(question_params.merge(user_id: current_user.id)))
   end
 
   def edit

@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
   respond_to :js
 
   def create
-    respond_with(@answer = @question.answers.create(answer_params.merge(user_id: current_user)))
+    respond_with(@answer = @question.answers.create(answer_params.merge(user_id: current_user.id)))
   end
 
   def update    
