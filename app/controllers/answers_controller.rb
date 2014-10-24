@@ -2,30 +2,29 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_question, only: [:create]
   before_action :load_answer, except: [:create]
+  before_action :set_question, except: [:create]
+
+  respond_to :js
 
   def create
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    @answer.save
+    respond_with(@answer = @question.answers.create(answer_params.merge(user_id: current_user)))
   end
 
   def update    
     @answer.update(answer_params)
-    @question = @answer.question
+    respond_with @answer
   end
 
   def destroy
-    @answer.destroy
+    respond_with(@answer.destroy)
   end
 
   def accept    
-    @answer.accept
-    @question = @answer.question
+    respond_with(@answer.accept)
   end
 
   def discard
-    @answer.discard
-    @question = @answer.question
+    respond_with(@answer.discard)
   end
 
   private
@@ -36,6 +35,10 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def set_question
+    @question = @answer.question
   end
 
   def answer_params
