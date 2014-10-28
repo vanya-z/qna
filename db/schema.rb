@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141027141745) do
     t.datetime "updated_at"
   end
 
+  add_index "authorizations", ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", using: :btree
   add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
