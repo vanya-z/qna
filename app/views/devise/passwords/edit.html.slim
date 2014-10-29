@@ -1,7 +1,7 @@
 h2 Change your password
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, defaults: { input_html: { class: 'form-control' } }) do |f|
   = f.hidden_field :reset_password_token
-    = f.input :password, autofocus: true
-    = f.input :password_confirmation
-    = f.button :submit, "Change my password"
+  = f.input :password, autofocus: true
+  = f.input :password_confirmation
+  = f.button :submit, "Change my password"
 = render "devise/shared/links"
