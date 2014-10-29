@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  get 'users/:id' => 'users#show', as: :user
   root 'questions#index'
 
   concern :commentable do

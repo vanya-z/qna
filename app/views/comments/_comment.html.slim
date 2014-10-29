@@ -1,5 +1,6 @@
 p id="comment_body_#{comment.id}"
-  = "#{comment.body} - #{comment.user.email}"
+  = "#{comment.body} - "
+  = link_to_author(comment)
   - if signed_in? && comment.user == current_user
     = link_to 'edit', '', class: 'btn btn-link edit-comment-link', data: {comment_id: comment.id}
     = link_to 'remove', comment, class: 'btn btn-link', method: :delete, remote: true, data: { confirm: 'Are you sure?' }
