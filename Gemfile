@@ -32,6 +32,7 @@ group :test, :development do
   gem 'launchy'
   gem 'capybara-webkit'
   gem 'database_cleaner'
+  gem 'capybara-email'
 end
 
 group :test do
@@ -52,6 +53,7 @@ gem "thin"
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

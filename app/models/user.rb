@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook]
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
   has_many :answers
   has_many :questions
   has_many :authorizations, dependent: :destroy
@@ -12,19 +12,23 @@ class User < ActiveRecord::Base
     return authorization.user if authorization
 
     email = auth.info[:email]
-    user = User.where(email: email).first
-    if user
-      user.create_authorization(auth)
+    if email
+      user = User.where(email: email).first
+      if user
+        user.create_authorization(auth.provider, auth.uid)
+      else
+        password = Devise.friendly_token[0, 20]
+        user = User.create!(email: email, password: password, password_confirmation: password, confirmed_at: Time.now)
+        user.create_authorization(auth.provider, auth.uid)
+      end
     else
-      password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password, password_confirmation: password, confirmed_at: Time.now)
-      user.create_authorization(auth)
+      user = User.new
     end
 
     user
   end
 
-  def create_authorization(auth)
-    self.authorizations.create(provider: auth.provider, uid: auth.uid)
+  def create_authorization(provider, uid)
+    self.authorizations.create(provider: provider, uid: uid)
   end
 end
