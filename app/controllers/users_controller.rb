@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_authorization_check
   before_action :load_user, only: :show
   
   def show    

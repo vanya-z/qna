@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  skip_authorization_check only: [:index, :show]
+  authorize_resource
   before_action :load_question, only: [:show, :edit, :update, :destroy]
   before_action :build_answer, only: :show
 

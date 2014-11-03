@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
+  authorize_resource
   before_action :load_question, only: [:create]
   before_action :load_answer, except: [:create]
   before_action :set_question, except: [:create]
@@ -21,10 +22,12 @@ class AnswersController < ApplicationController
 
   def accept    
     respond_with(@answer.accept)
+    authorize! :accept, @answer
   end
 
   def discard
     respond_with(@answer.discard)
+    authorize! :discard, @answer
   end
 
   private

@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  authorize_resource
   before_action :load_comment, except: :create
   before_action :load_parent, only: :create
 

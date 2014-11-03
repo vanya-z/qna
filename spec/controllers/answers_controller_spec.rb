@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, :type => :controller do
-  let(:question) { create(:question) }
-  let(:answer) { create(:answer) }
+  let!(:question) { create(:question) }
+  let(:answer) { create(:answer, question: question) }
 
   describe 'POST #create' do
     context 'authenticated user' do
@@ -52,8 +52,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it 'changes answer attributes' do
         patch :update, question_id: answer.question, id: answer, answer: { body: 'new body' }, format: :js
-        answer.reload
-        expect(answer.body).to eq 'new body'
+        expect(answer.reload.body).to eq 'new body'
       end
 
       it 'renders template update.js.erb' do
@@ -66,8 +65,7 @@ RSpec.describe AnswersController, :type => :controller do
       before { patch :update, question_id: question, id: answer, answer: { body: nil }, format: :js }
 
       it 'does not change answer attributes' do
-        answer.reload
-        expect(answer.body).to eq 'My answer'
+        expect(answer.reload.body).to eq 'My answer'
       end
 
       it 'renders template update.js.erb' do
@@ -92,30 +90,32 @@ RSpec.describe AnswersController, :type => :controller do
 
   describe 'POST #accept' do
     login_user
+    let(:own_question) { create(:question, user: @user) }
+    let(:answer) { create(:answer, question: own_question) }
 
     it 'sets the answer accepted' do
-      post :accept, question_id: answer.question, id: answer, format: :js
-      answer.reload
-      expect(answer.is_accepted).to eq true
+      post :accept, question_id: own_question, id: answer, format: :js
+      expect(answer.reload.is_accepted).to eq true
     end
 
     it 'renders template accept.js.erb' do
-      post :accept, question_id: answer.question, id: answer, format: :js
+      post :accept, question_id: own_question, id: answer, format: :js
       expect(response).to render_template :accept
     end
   end
 
   describe 'POST #discard' do
     login_user
+    let(:own_question) { create(:question, user: @user) }
+    let(:answer) { create(:answer, question: own_question) }
 
     it 'sets the answer is_accepted to false' do
-      post :discard, question_id: answer.question, id: answer, format: :js
-      answer.reload
-      expect(answer.is_accepted).to eq false
+      post :discard, question_id: own_question, id: answer, format: :js
+      expect(answer.reload.is_accepted).to eq false
     end
 
     it 'renders template discard.js.erb' do
-      post :discard, question_id: answer.question, id: answer, format: :js
+      post :discard, question_id: own_question, id: answer, format: :js
       expect(response).to render_template :discard
     end
   end
