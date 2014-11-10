@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'profiles/me' => 'profiles#me'
       get 'profiles/all' => 'profiles#all'
-      resources :questions, only: [:index, :show], shallow: true do
+      resources :questions, only: [:index, :show, :create], shallow: true do
         resources :answers, only: :index
       end
     end
