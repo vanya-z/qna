@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get 'profiles/me' => 'profiles#me'
       get 'profiles/all' => 'profiles#all'
       resources :questions, only: [:index, :show, :create], shallow: true do
-        resources :answers, only: :index
+        resources :answers, only: [:index, :create]
       end
     end
   end

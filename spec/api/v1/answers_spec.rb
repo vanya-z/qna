@@ -37,4 +37,28 @@ describe 'Answers API' do
       end
     end
   end
+
+  describe 'POST /create' do
+    let(:access_token) { create(:access_token) }
+    let!(:question) { create(:question) }
+    let(:answers) { build(:answer) }
+
+    context 'unauthorized'
+
+    context 'authorized' do
+      before { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), question: question, format: :json, access_token: access_token.token }
+
+      it 'returns 200 status code' do
+        expect(response).to be_success
+      end
+
+      it 'saves the new answer in the database' do
+        expect { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), question: question, format: :json, access_token: access_token.token }.to change(Answer, :count).by(1)
+      end
+
+      it 'the new answer belongs to question' do
+        expect { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), question: question, format: :json, access_token: access_token.token }.to change(question.answers, :count).by(1)
+      end
+    end
+  end
 end

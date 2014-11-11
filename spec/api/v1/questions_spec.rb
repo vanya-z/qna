@@ -108,8 +108,14 @@ describe 'Questions API' do
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
+
       it 'saves the new question in the database' do
         expect { post 'api/v1/questions', question: attributes_for(:question), format: :json, access_token: access_token.token }.to change(Question, :count).by(1)
+      end
+
+      it 'returns 201 status if access_token is valid' do
+        post 'api/v1/questions', question: attributes_for(:question), format: :json, access_token: access_token.token
+        expect(response.status).to eq 201
       end
     end
   end
