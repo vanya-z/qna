@@ -7,17 +7,7 @@ describe 'Answers API' do
     let!(:answers) { create_list(:answer, 2, question: question) }
     let!(:answer) { answers.first }
 
-    context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: '1234'
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       before { get "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token }
@@ -36,6 +26,10 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get "/api/v1/questions/#{question.id}/answers", { format: :json }.merge(options)
+    end
   end
 
   describe 'POST /create' do
@@ -43,7 +37,7 @@ describe 'Answers API' do
     let!(:question) { create(:question) }
     let(:answers) { build(:answer) }
 
-    context 'unauthorized'
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       before { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), question: question, format: :json, access_token: access_token.token }
@@ -59,6 +53,10 @@ describe 'Answers API' do
       it 'the new answer belongs to question' do
         expect { post "/api/v1/questions/#{question.id}/answers", answer: attributes_for(:answer), question: question, format: :json, access_token: access_token.token }.to change(question.answers, :count).by(1)
       end
+    end
+
+    def do_request(options = {})
+      post "/api/v1/questions/#{question.id}/answers", { format: :json }.merge(options)
     end
   end
 end
