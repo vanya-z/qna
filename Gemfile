@@ -43,6 +43,7 @@ end
 
 gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'devise'
 gem 'carrierwave'
