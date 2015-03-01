@@ -1,5 +1,7 @@
 = render 'question'
-= render 'comments/list', parent: @question
+.row
+  .col-md-11.col-md-offset-1
+    = render 'comments/list', parent: @question
 .answers
   = render 'answers'
 - if signed_in? && @question.user != current_user

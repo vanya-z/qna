@@ -13,6 +13,7 @@ feature 'Create comment', %q{
     scenario 'comments the question', js: true do
       sign_in(user)
       visit question_path(question)
+      click_on 'add comment'
       within 'form#new_comment' do
         fill_in 'Your comment', with: 'My comment body'
         click_on 'Add comment'

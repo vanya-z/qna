@@ -1,10 +1,13 @@
-p id="comment_body_#{comment.id}"
-  = "#{comment.body} - "
-  = link_to_author(comment)
-  - if signed_in? && comment.user == current_user
-    = link_to 'edit', '', class: 'btn btn-link edit-comment-link', data: {comment_id: comment.id}
-    = link_to 'remove', comment, class: 'btn btn-link', method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-  = simple_form_for comment, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
+tr
+  td id="comment_body_#{comment.id}"
+    = "#{comment.body} - "
+    = link_to_author(comment)
+    - if signed_in? && comment.user == current_user
+      |  | 
+      = link_to 'edit', '', class: 'btn-link edit-comment-link', data: {comment_id: comment.id}
+      |  | 
+      = link_to 'remove', comment, class: 'btn-link', method: :delete, remote: true, data: { confirm: 'Are you sure?' }
+  td = simple_form_for comment, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
     = f.input :body, label: 'Edit comment'
     .text-danger id="edit_comment_body_error_#{comment.id}"
     = f.button :submit, 'update'

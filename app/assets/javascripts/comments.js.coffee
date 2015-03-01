@@ -17,5 +17,21 @@ comment = ->
     $("#edit_comment_" + comment_id).hide()
     return
 
+  $(document).on 'click', '.add-comment', (e) ->
+    e.preventDefault()
+    parent_id = $(this).data("parentId")
+    parent_class = $(this).data("parentClass")
+    $("#add_comment_" + parent_class + "_" + parent_id).hide()
+    $("#" + parent_class + "_" + parent_id + "_comment_form").show()
+    return
+
+  $(document).on 'click', '.cancel-add-comment', (e) ->
+    e.preventDefault()
+    parent_id = $(this).data("parentId")
+    parent_class = $(this).data("parentClass")
+    $("#add_comment_" + parent_class + "_" + parent_id).show()
+    $("#" + parent_class + "_" + parent_id + "_comment_form").hide()
+    return
+
 $(document).ready(comment)
 $(document).on('page:load', comment)
