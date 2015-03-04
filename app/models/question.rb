@@ -8,6 +8,8 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
+  acts_as_votable
+
   def discard_questions
     self.answers.update_all(is_accepted: false)
   end

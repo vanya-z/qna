@@ -1,13 +1,15 @@
 - @question.answers.each do |answer|
-  p
     - if answer.persisted?
-      div class="panel panel-#{ answer.is_accepted ? 'success' : 'default' }" id="answer_body_#{answer.id}"
+      div class="panel panel-#{ answer.is_accepted ? 'success' : 'default' } panel-condensed" id="answer_body_#{answer.id}"
         .panel-body
-          -if answer.is_accepted?
-            span.glyphicon.glyphicon-ok.text-success
-          = answer.body
-          - answer.attachments.each do |a|
-            li= link_to a.file.identifier, a.file.url
+          .col-md-1.text-center
+            = render 'votes/voting', votable: answer
+          .col-md-11
+            -if answer.is_accepted?
+              span.glyphicon.glyphicon-ok.text-success
+            = answer.body
+            - answer.attachments.each do |a|
+              li= link_to a.file.identifier, a.file.url
         - if answer.user == current_user
           = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
           = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
@@ -24,4 +26,6 @@
         p
           = f.button :submit
           = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }
-      = render 'comments/list', parent: answer
+      .row
+        .col-md-11.col-md-offset-1
+          = render 'comments/list', parent: answer

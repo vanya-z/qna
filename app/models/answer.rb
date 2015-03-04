@@ -10,6 +10,8 @@ class Answer < ActiveRecord::Base
 
   default_scope { order('created_at') }
 
+  acts_as_votable
+
   def accept
     self.question.discard_questions
     self.reload.update(is_accepted: true)

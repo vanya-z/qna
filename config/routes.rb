@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :questions, concerns: :commentable, shallow: true do
+  concern :votable do
+    resources :votes, only: :create
+  end
+
+  resources :questions, concerns: [:commentable, :votable], shallow: true do
     resources :answers, only: [:create, :update, :destroy] do
       member do
         post 'accept'
@@ -18,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :answers, only: [], concerns: :commentable
+  resources :answers, only: [], concerns: [:commentable, :votable]
   
   namespace :api do
     namespace :v1 do

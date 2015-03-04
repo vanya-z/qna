@@ -59,6 +59,7 @@ gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers'
+gem 'acts_as_votable', '~> 0.10.0'
 # gem 'oj'
 # gem 'oj_mimic_json'
 

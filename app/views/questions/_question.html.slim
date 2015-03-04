@@ -1,10 +1,14 @@
-.panel.panel-default.question
+.panel.panel-default.panel-condensed.question
   .panel-heading
     h3.panel-title = @question.title
   .panel-body
-    p= @question.body
-    - @question.attachments.each do |a|
-      li= link_to a.file.identifier, a.file.url
+    .row
+      .col-md-1.text-center
+        = render 'votes/voting', votable: @question
+      .col-md-11
+        p= @question.body
+        - @question.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
   - if @question.user == current_user
     .panel-footer    
       = link_to 'edit question', edit_question_path(@question), class: 'btn btn-link edit-question-link'
