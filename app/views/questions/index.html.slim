@@ -1,4 +1,3 @@
-= link_to "Ask question", new_question_path, class: 'btn btn-default'
 ul.list-group
   -@questions.each do |question|
   	li.list-group-item = link_to question.title, question

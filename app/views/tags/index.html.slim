@@ -1,0 +1,10 @@
+- @tags.each_slice(4) do |slice|
+  .row
+    - slice.each do |tag|
+      .col-xs-12.col-sm-6.col-md-6.col-lg-3
+        .panel-body
+          = link_to tag.name, tag_path(tag.name), class: 'btn btn-default btn-xs'
+          span.small.text-muted  ×
+          span.small.text-muted  = tag_count(tag)
+          .small = tag_statistic(tag)
+.pull-right = will_paginate @tags, renderer: BootstrapPagination::Rails

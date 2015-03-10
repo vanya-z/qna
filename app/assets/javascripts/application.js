@@ -17,4 +17,5 @@
 //= require private_pub
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require bootstrap-tagsinput
 //= require_tree .

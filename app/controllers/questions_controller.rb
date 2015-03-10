@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   respond_to :html, :js
 
   def index
-    respond_with(@questions = Question.all)
+    respond_with(@questions = params[:tag] ? Question.tagged_with(params[:tag]) : Question.all)
   end
 
   def show
@@ -46,6 +46,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, attachments_attributes: [:id, :file, :_destroy])
+    params.require(:question).permit(:title, :body, :all_tags, attachments_attributes: [:id, :file, :_destroy])
   end
 end

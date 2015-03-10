@@ -60,6 +60,8 @@ gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers'
 gem 'acts_as_votable', '~> 0.10.0'
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
 # gem 'oj'
 # gem 'oj_mimic_json'
 

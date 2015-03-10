@@ -1,0 +1,5 @@
+p
+  .btn-toolbar
+    .btn-group.pull-right= link_to "Ask question", new_question_path, class: current_page?(new_question_path) ? 'btn btn-default active' : 'btn btn-default'
+    .btn-group.pull-right= link_to "Tags", tags_path, class: current_page?(tags_path) ? 'btn btn-default active' : 'btn btn-default'
+    .btn-group.pull-right= link_to "Questions", questions_path, class: current_page?(root_path) || current_page?(questions_path) ? 'btn btn-default active' : 'btn btn-default'
