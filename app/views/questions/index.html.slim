@@ -16,4 +16,4 @@
             .col-xs-9
               = tag_list(question) if question.tags.present?
             .col-xs-3
-              small.text-muted= 'asked ' + question.created_at.to_formatted_s(:short)
+              small.text-muted= 'asked ' + created_at(question)
