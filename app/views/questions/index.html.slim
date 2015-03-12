@@ -1,3 +1,19 @@
-ul.list-group
+.list-group
   -@questions.each do |question|
-  	li.list-group-item = link_to question.title, question
+    .list-group-item
+      .row
+        .col-xs-1.text-center
+          .text-muted
+            = votes(question)
+            small votes
+          div
+            = question.answers.count
+            div.small answers
+        .col-xs-11
+          h5= link_to question.title, question
+          p= truncate(question.body, length: 200)
+          .row
+            .col-xs-9
+              = tag_list(question) if question.tags.present?
+            .col-xs-3
+              small.text-muted= 'asked ' + question.created_at.to_formatted_s(:short)
