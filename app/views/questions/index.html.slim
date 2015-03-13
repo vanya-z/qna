@@ -1,3 +1,7 @@
+- if current_page?(root_path) || current_page?(questions_path)
+  h4 All questions
+- else
+  h4 Tagged Questions
 .list-group
   -@questions.each do |question|
     .list-group-item
