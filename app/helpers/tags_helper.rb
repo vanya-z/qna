@@ -17,9 +17,9 @@ module TagsHelper
     month = tags.where("created_at > ?", Time.now - 1.month).count
     year = tags.where("created_at > ?", Time.now - 1.year).count
 
-    first_tag = tags.first unless tags.empty?
-    if first_tag.created_at > Date.today - 45.days
-      return str = 'created ' + time_ago_in_words(first_tag.created_at) + ' ago'
+    first_tag = tags.first
+    if first_tag
+      return str = 'created ' + time_ago_in_words(first_tag.created_at) + ' ago' if first_tag.created_at > Date.today - 45.days
     end
 
     str = day > 0 ? day.to_s + ' asked today' : ''
