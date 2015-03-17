@@ -19,7 +19,7 @@ RSpec.describe CommentsController, :type => :controller do
   end
 
   describe 'PATCH #update' do
-    let(:comment) { create :comment }
+    let(:comment) { create :comment, user: @user }
 
     context 'valid attributes' do
       it 'assigns the requested comment to @comment' do
@@ -53,7 +53,7 @@ RSpec.describe CommentsController, :type => :controller do
   end
 
   describe 'DELETE #comment' do
-    let!(:comment) { create :comment }
+    let!(:comment) { create :comment, user: @user }
 
     it 'deletes comment' do
       expect { delete :destroy, id: comment, format: :js }.to change(Comment, :count).by(-1)

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  authorize_resource
+  load_and_authorize_resource
   before_action :load_question, only: [:create]
   before_action :load_answer, except: [:create]
   before_action :set_question, except: [:create]

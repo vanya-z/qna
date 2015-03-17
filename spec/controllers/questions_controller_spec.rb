@@ -77,50 +77,54 @@ RSpec.describe QuestionsController, :type => :controller do
 
   describe 'PATCH #update' do
     login_user
-    context 'valid attributes' do
-      it 'assigns the requested question to @question' do
-        patch :update, id: question, question: attributes_for(:question)
-        expect(assigns(:question)).to eq question
+    let(:own_question) { create(:question, user: @user) }
+
+    context 'user has ability' do
+      context 'valid attributes' do
+        it 'assigns the requested question to @question' do
+          patch :update, id: own_question, question: attributes_for(:question)
+          expect(assigns(:question)).to eq own_question
+        end
+
+        it 'changes question attributes' do
+          patch :update, id: own_question, question: { title: 'new title', body: 'new body'}
+          own_question.reload
+          expect(own_question.title).to eq 'new title'
+          expect(own_question.body).to eq 'new body'
+        end
+
+        it 'redirects to question' do
+          patch :update, id: own_question, question: attributes_for(:question)
+          expect(response).to redirect_to own_question
+        end
       end
 
-      it 'changes question attributes' do
-        patch :update, id: question, question: { title: 'new title', body: 'new body'}
-        question.reload
-        expect(question.title).to eq 'new title'
-        expect(question.body).to eq 'new body'
-      end
+      context 'invalid attributes' do
+        before { patch :update, id: own_question, question: { title: 'new title', body: nil} }
 
-      it 'redirects to question' do
-        patch :update, id: question, question: attributes_for(:question)
-        expect(response).to redirect_to question
-      end
-    end
+        it 'does not change question attributes' do
+          own_question.reload
+          expect(question.title).to eq 'MyString'
+          expect(question.body).to eq 'MyText'
+        end
 
-    context 'invalid attributes' do
-      before { patch :update, id: question, question: { title: 'new title', body: nil} }
-
-      it 'does not change question attributes' do
-        question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
-      end
-
-      it 're-renders template edit' do
-        expect(response).to render_template :edit
+        it 're-renders template edit' do
+          expect(response).to render_template :edit
+        end
       end
     end
   end
 
   describe 'DELETE #destroy' do
     login_user
-    before { question }
+    let!(:own_question) { create(:question, user: @user) }
 
     it 'deletes question' do
-      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+      expect { delete :destroy, id: own_question }.to change(Question, :count).by(-1)
     end
 
     it 'redirect to index view' do
-      delete :destroy, id: question
+      delete :destroy, id: own_question
       expect(response).to redirect_to questions_url
     end
   end

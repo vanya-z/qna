@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
-  skip_authorization_check
+  load_and_authorize_resource
   before_action :load_votable
   before_action :load_vote
 

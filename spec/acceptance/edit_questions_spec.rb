@@ -30,10 +30,18 @@ feature 'Edit question', %q{
       expect(page).to have_content 'New body'
     end
     
-    scenario 'try to edit other user\'s question' do
-      sign_in user
-      visit question_path(question)
-      expect(page).to_not have_link 'edit question'
+    describe 'try to edit other user\'s question' do
+      scenario 'via "edit question" link' do
+        sign_in user
+        visit question_path(question)
+        expect(page).to_not have_link 'edit question'
+      end
+
+      scenario 'by visiting edit path' do
+        sign_in user
+        visit edit_question_path(question)
+        expect(page).to have_content 'You are not authorized to access this page.'
+      end
     end
   end
 end

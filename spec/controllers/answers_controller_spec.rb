@@ -43,6 +43,7 @@ RSpec.describe AnswersController, :type => :controller do
   describe 'PATCH #update' do
 
     login_user
+    let(:answer) { create(:answer, question: question, user: @user) }
 
     context 'valid attributes' do
       it 'assigns the requested answer to @answer' do
@@ -76,7 +77,7 @@ RSpec.describe AnswersController, :type => :controller do
 
   describe 'DELETE #destroy' do
     login_user
-    before { answer }
+    let!(:answer) { create(:answer, question: question, user: @user) }
 
     it 'deletes answer' do
       expect { delete :destroy, question_id: answer.question, id: answer, format: :js }.to change(Answer, :count).by(-1)
