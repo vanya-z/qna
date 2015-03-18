@@ -1,14 +1,17 @@
-tr
-  td id="comment_body_#{comment.id}"
-    = "#{comment.body} - "
-    = link_to_author(comment)
-    - if signed_in? && comment.user == current_user
-      |  | 
-      = link_to 'edit', '', class: 'btn-link edit-comment-link', data: {comment_id: comment.id}
-      |  | 
-      = link_to 'remove', comment, class: 'btn-link', method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-  td = simple_form_for comment, remote: true, defaults: { input_html: { class: 'form-control' } } do |f|
-    = f.input :body, label: 'Edit comment'
-    .text-danger id="edit_comment_body_error_#{comment.id}"
-    = f.button :submit, 'update'
-    = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-comment-link', data: { comment_id: comment.id }
+.row
+  .col-xs-12
+    ul.nav.nav-tabs.pv-3 id="comment_body_#{comment.id}"
+      = "#{comment.body} – "
+      = link_to_author(comment)
+      span.text-muted= ' ' + created_at(comment)
+      - if signed_in? && comment.user == current_user
+        = link_to 'edit', '', class: 'btn-link edit-comment-link ml-5', data: {comment_id: comment.id}
+        = link_to 'remove', comment, class: 'btn-link ml-5', method: :delete, remote: true, data: {confirm: 'Are you sure?'}
+    = form_for comment, remote: true do |f|
+      .pv-10
+        .form-group
+          = f.label :body, 'Edit comment'
+          = f.text_field :body, class: 'form-control'
+        .text-danger id="edit_comment_body_error_#{comment.id}"
+        = f.submit 'Update comment', class: 'btn btn-default'
+        = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-comment-link', data: { comment_id: comment.id }

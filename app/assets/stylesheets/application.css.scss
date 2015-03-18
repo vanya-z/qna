@@ -4,3 +4,47 @@
 @import "font-awesome";
 @import "bootstrap-tagsinput";
 @import "*";
+
+.ml-5 {
+  margin-left: 5px;
+}
+.pv-3 {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.pv-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.pv-10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.votes-count {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.votes-stat {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.votes {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1;
+}
+.answer-stat {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.text-accepted {
+  color: #e1e818;
+  font-weight: 600;
+}
+.tag {
+  margin-bottom: 3px;
+}
+.footer {
+  padding-top: 100px;
+  padding-bottom: 30px;
+}

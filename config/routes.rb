@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'users/:id' => 'users#show', as: :user
   post 'users/registration_via_provider' => 'users#registration_via_provider', as: :registration_via_provider
   root 'questions#index'
-  get 'tags/:tag', to: 'questions#index', as: "tag"
+  get 'questions/tagged/:tag', to: 'questions#index', as: "tag"
   resources :tags, only: :index
 
   concern :commentable do

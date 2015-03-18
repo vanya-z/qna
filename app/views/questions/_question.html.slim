@@ -10,7 +10,9 @@
         - @question.attachments.each do |a|
           li= link_to a.file.identifier, a.file.url
         = tag_list(@question) if @question.tags.present?
-  - if @question.user == current_user
+        .row
+          small.pull-right= link_to_author(@question)
+  - if can? :manage, @question
     .panel-footer    
       = link_to 'edit question', edit_question_path(@question), class: 'btn btn-link edit-question-link'
       = link_to 'delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-link'

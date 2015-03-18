@@ -4,20 +4,17 @@
         .panel-body
           .col-md-1.text-center
             = render 'votes/voting', votable: answer
-          .col-md-11
             -if answer.is_accepted?
-              span.glyphicon.glyphicon-ok.text-success
+              .text-success
+                i.fa.fa-check-circle.fa-2x
+          .col-md-11
             = answer.body
             - answer.attachments.each do |a|
               li= link_to a.file.identifier, a.file.url
-        - if answer.user == current_user
+        - if can? :manage, answer
           = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
           = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
-        - if @question.user == current_user
-          - if answer.is_accepted?
-            = link_to 'Discard', discard_answer_path(answer), method: :post, remote: true, class: 'btn btn-link'
-          - else
-            = link_to 'Accept', accept_answer_path(answer), method: :post, remote: true, class: 'btn btn-link'
+        = accept_discard_link(answer) if can? :manage, @question
       = simple_nested_form_for answer, remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
         = f.input :body, label: false
         .text-danger id="edit_body_error_#{answer.id}"

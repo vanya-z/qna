@@ -1,15 +1,16 @@
 - parent_class, parent_id = parent.class.to_s.downcase, parent.id
 .comments class="#{parent_class}-#{parent_id}"
-  table class='table table-condensed'
-    = render parent.comments
-    - if signed_in?
-      tr
-        td
-          div class='new_comment_form' id="#{parent_class}_#{parent_id}_comment_form"
-            = simple_form_for [parent, Comment.new], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
-              p = f.input :body, label: "Your comment"
+  = render parent.comments
+  - if signed_in?
+    .row
+      .col-xs-12
+        div class='new_comment_form' id="#{parent_class}_#{parent_id}_comment_form"
+          = form_for [parent, Comment.new], remote: true do |f|
+            .pv-10
+              .form-group
+                = f.label :body, 'Your comment'
+                = f.text_field :body, class: 'form-control'
               #create_comment_error.text-danger
-              p
-              = f.button :submit, "Add comment"
+              = f.submit 'Add comment', class: 'btn btn-default'
               = link_to 'Cancel', '', class: 'btn btn-link cancel-add-comment', data: { parent_id: parent_id, parent_class: parent_class }
-          = link_to 'add comment', '', class: 'add-comment', id: "add_comment_#{parent_class}_#{parent_id}", data: { parent_id: parent_id, parent_class: parent_class }
+        .pv-5 = link_to 'add comment', '', class: 'add-comment', id: "add_comment_#{parent_class}_#{parent_id}", data: { parent_id: parent_id, parent_class: parent_class }

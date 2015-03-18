@@ -2,7 +2,7 @@ module TagsHelper
 
   def tag_list(question)
     content_tag_for(:span, question.tags) do |tag|
-      link_to tag.name, tag_path(tag.name), class: 'btn btn-default btn-xs'
+      link_to tag.name, tag_path(tag.name), class: 'btn btn-default btn-xs tag'
     end
   end
 

@@ -18,7 +18,7 @@ feature 'Edit comment', %q{
       click_on 'edit'
       within 'form.edit_comment' do
         fill_in 'Edit comment', with: 'My edited comment body'
-        click_on 'update'
+        click_on 'Update comment'
       end
 
       expect(page).to have_content 'My edited comment body'
