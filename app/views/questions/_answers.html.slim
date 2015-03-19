@@ -15,14 +15,14 @@
           = link_to 'Edit', '', class: "btn btn-link edit-answer-link", data: { answer_id: answer.id }
           = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
         = accept_discard_link(answer) if can? :manage, @question
-      = simple_nested_form_for answer, remote: true, defaults: { input_html: { class: 'form-control', id: "edit_answer_#{answer.id}" } } do |f|
-        = f.input :body, label: false
+      = nested_form_for answer, remote: true do |f|
+        .form-group
+          = f.text_area :body, class: 'form-control', id: "edit_answer_#{answer.id}"
         .text-danger id="edit_body_error_#{answer.id}"
-        p = f.simple_fields_for :attachments
-        p = f.link_to_add "Add file", :attachments
-        p
-          = f.button :submit
-          = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }
+        .form-group = f.fields_for :attachments          
+        .form-group = f.link_to_add "Add file", :attachments          
+        = f.submit class: 'btn btn-default'
+        = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }
       .row
         .col-xs-11.col-xs-offset-1
           = render 'comments/list', parent: answer

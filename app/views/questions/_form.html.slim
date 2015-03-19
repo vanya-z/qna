@@ -1,8 +1,13 @@
-= simple_nested_form_for @question, defaults: { input_html: { class: 'form-control' } } do |f|
-  p
-    = f.input :title
-    = f.input :body
-    = f.input :all_tags, label: 'Tags separated with comma or ENTER', input_html: { data: {"role" => "tagsinput"}}
-  p = f.simple_fields_for :attachments
+= nested_form_for @question, defaults: { input_html: { class: 'form-control' } } do |f|
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: 'form-control', rows: 15
+  .form-group
+    = f.label :all_tags, 'Tags separated with comma or ENTER'
+    = f.text_field :all_tags, data: {"role" => "tagsinput"}, class: 'form-control'
+  p = f.fields_for :attachments
   p = f.link_to_add "Add file", :attachments
-  p = f.button :submit, class: 'btn-primary'
+  p = f.submit class: 'btn btn-default'
