@@ -2,12 +2,12 @@
     - if answer.persisted?
       div class="panel panel-#{ answer.is_accepted ? 'success' : 'default' } panel-condensed" id="answer_body_#{answer.id}"
         .panel-body
-          .col-md-1.text-center
+          .col-xs-1.text-center
             = render 'votes/voting', votable: answer
             -if answer.is_accepted?
               .text-success
                 i.fa.fa-check-circle.fa-2x
-          .col-md-11
+          .col-xs-11
             = answer.body
             - answer.attachments.each do |a|
               li= link_to a.file.identifier, a.file.url
@@ -24,5 +24,5 @@
           = f.button :submit
           = link_to 'Cancel', '', class: 'btn btn-link cancel-edit-answer-link', data: { answer_id: answer.id }
       .row
-        .col-md-11.col-md-offset-1
+        .col-xs-11.col-xs-offset-1
           = render 'comments/list', parent: answer

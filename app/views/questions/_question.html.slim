@@ -3,9 +3,9 @@
     h3.panel-title = @question.title
   .panel-body
     .row
-      .col-md-1.text-center
+      .col-xs-1.text-center
         = render 'votes/voting', votable: @question
-      .col-md-11
+      .col-xs-11
         p= @question.body
         - @question.attachments.each do |a|
           li= link_to a.file.identifier, a.file.url
