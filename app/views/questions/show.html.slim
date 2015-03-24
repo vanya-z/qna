@@ -6,10 +6,12 @@
   = render 'answers'
 - if signed_in? && @question.user != current_user
   h3 Your answer
-  = simple_nested_form_for [@question ,@answer], defaults: { input_html: { class: 'form-control' } }, remote: true do |f|
-    p = f.input :body
+  = nested_form_for [@question ,@answer], remote: true do |f|
+    .form-group
+      = f.label :body
+      = f.text_area :body, class: 'form-control'
     #create_answer_error.text-danger
-    p = f.simple_fields_for :attachments
-    p = f.link_to_add "Add file", :attachments
-    p = f.button :submit, 'Create'
+    .form-group = f.fields_for :attachments
+    .form-group = f.link_to_add "Add file", :attachments
+    = f.submit class: 'btn btn-default'
 = subscribe_to "/question#{@question.id}"
