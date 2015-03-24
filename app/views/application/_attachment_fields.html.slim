@@ -10,5 +10,6 @@
     span.input-group-addon.btn.btn-default.btn-file
       span.fileinput-new Select file
       span.fileinput-exists Change
+      = f.label :file
       = f.file_field :file
     a.input-group-addon.btn.btn-default.fileinput-exists data-dismiss="fileinput" href="#"  Remove
