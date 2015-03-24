@@ -15,4 +15,23 @@ module ApplicationHelper
       content_tag(:div, content_tag(:small, 'answers'))
     end
   end
+
+  def icon_by_filename(name)
+    extension = File.extname(name)
+    extensions = {
+      'image' => ['.jpg', '.jpeg', '.bmp', '.png', '.gif'],
+      'archive' => ['.zip', '.rar', '.7z'],
+      'excel' => ['.xls', '.xlsx'],
+      'word' => ['.doc', '.docx'],
+      'powerpoint' => ['.ppt', '.pptx'],
+      'code' => ['.rb', '.html', '.slim', '.erb', '.css', '.scss', '.js', '.coffee'],
+      'text' => '.txt',
+      'video' => ['.avi', '.mp4', '.mkv', '.flv'],
+      'audio' => ['.mp3', '.acc', '.wav']
+    }
+    extensions.each do |key, value|
+      @icon = content_tag(:i, " #{name}", class: "fa fa-file-#{key}-o") if value.include?(extension)
+    end
+    @icon || content_tag(:i, name, class: 'fa fa-file-o')
+  end
 end

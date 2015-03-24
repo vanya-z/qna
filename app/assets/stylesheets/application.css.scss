@@ -3,8 +3,12 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "bootstrap-tagsinput";
+@import "jasny-bootstrap";
 @import "*";
-
+.navbar {
+  border-radius: 0;
+  height: 30px;
+}
 .ml-5 {
   margin-left: 5px;
 }

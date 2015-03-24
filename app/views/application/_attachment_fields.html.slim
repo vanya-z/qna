@@ -1,8 +1,15 @@
 - if f.object.persisted?
-  li
-    = link_to(f.object.file.identifier, f.object.file.url)
-    | &nbsp;
-    = f.link_to_remove 'remove', class: 'text-danger'
+  = link_to(icon_by_filename(f.object.file.identifier), f.object.file.url)
+  = f.link_to_remove class: 'text-danger ml-5' do
+    i.fa.fa-times
 - elsif f.object.new_record?
-  = f.input :file, as: :file
-  = f.link_to_remove 'Remove'
+  .fileinput.fileinput-new.input-group data-provides="fileinput" 
+    .form-control data-trigger="fileinput" 
+      i.fa.fa-file-o
+      span.fileinput-filename
+    span.input-group-addon.btn.btn-default.btn-file
+      span.fileinput-new Select file
+      span.fileinput-exists Change
+      = f.file_field :file
+    = f.link_to_remove 'Remove', class: 'input-group-addon btn btn-danger fileinput-exists', 'data-dismiss'=> 'fileinput'
+    = f.link_to_remove 'Cancel', class: 'input-group-addon btn btn-default fileinput-new', 'data-dismiss'=> 'fileinput'
