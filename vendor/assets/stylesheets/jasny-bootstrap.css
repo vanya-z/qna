@@ -149,7 +149,7 @@
 .fileinput.input-group > .btn-file {
   z-index: 1;
 }
-/*.fileinput-new.input-group .btn-file,
+.fileinput-new.input-group .btn-file,
 .fileinput-new .input-group .btn-file {
   border-radius: 0 4px 4px 0;
 }
@@ -162,7 +162,7 @@
 .fileinput-new.input-group .btn-file.btn-lg,
 .fileinput-new .input-group .btn-file.btn-lg {
   border-radius: 0 6px 6px 0;
-}*/
+}
 .form-group.has-warning .fileinput .fileinput-preview {
   color: #8a6d3b;
 }

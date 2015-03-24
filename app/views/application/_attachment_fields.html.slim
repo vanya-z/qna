@@ -11,5 +11,4 @@
       span.fileinput-new Select file
       span.fileinput-exists Change
       = f.file_field :file
-    = f.link_to_remove 'Remove', class: 'input-group-addon btn btn-danger fileinput-exists', 'data-dismiss'=> 'fileinput'
-    = f.link_to_remove 'Cancel', class: 'input-group-addon btn btn-default fileinput-new', 'data-dismiss'=> 'fileinput'
+    a.input-group-addon.btn.btn-default.fileinput-exists data-dismiss="fileinput" href="#"  Remove

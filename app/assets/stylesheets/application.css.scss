@@ -12,6 +12,9 @@
 .ml-5 {
   margin-left: 5px;
 }
+.mt-20{
+  margin-top: 20px;
+}
 .pv-3 {
   padding-top: 3px;
   padding-bottom: 3px;
@@ -51,4 +54,22 @@
 .footer {
   padding-top: 100px;
   padding-bottom: 30px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+.fileinput > .input-group-addon > .field_with_errors {
+  display: none;
 }
