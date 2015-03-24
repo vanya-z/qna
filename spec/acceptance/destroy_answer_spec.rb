@@ -22,6 +22,7 @@ feature 'Answer deleting', %q{
       sign_in user
       visit question_path(question_answered)
       expect(page).to have_content own_answer.body
+      sleep 1
       click_on 'Delete'
       expect(page).to_not have_content own_answer.body
     end

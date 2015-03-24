@@ -15,6 +15,7 @@ feature 'Destroy comment', %q{
     scenario 'delete own comment', js: true do
       sign_in(user)
       visit question_path(question)
+      sleep 1
       click_on 'remove'
 
       expect(page).to_not have_content comment.body
