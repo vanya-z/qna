@@ -16,7 +16,6 @@
 //= require jquery_nested_form
 //= require private_pub
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require bootstrap-tagsinput
 //= require jasny-bootstrap
 //= require_tree .
