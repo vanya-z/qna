@@ -23,7 +23,7 @@ feature 'Edit question', %q{
       click_on 'edit question'
       within '.edit_question' do
         fill_in 'Title', with: 'New title'
-        fill_in 'Body', with: 'New body'
+        fill_in 'wmd-input-body', with: 'New body'
         click_on 'Update Question'
       end
       expect(page).to have_content 'New title'

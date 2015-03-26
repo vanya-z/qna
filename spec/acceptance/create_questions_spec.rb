@@ -14,7 +14,7 @@ feature 'Create question', %q{
     visit '/questions'
     click_on 'Ask question'
     fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+    fill_in 'wmd-input-body', with: 'text text text'
     click_on 'Create'
 
     expect(page).to have_content 'Test question'

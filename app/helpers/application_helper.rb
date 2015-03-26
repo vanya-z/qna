@@ -1,5 +1,14 @@
 module ApplicationHelper
 
+  def markdown(text)
+    renderer = Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true)
+    Redcarpet::Markdown.new(renderer, options = {}).render(text).html_safe
+  end
+  
+  def markdown_to_text(text)
+    Nokogiri::HTML(markdown(text)).text
+  end
+
   def link_to_author(object)
     object.user ? link_to(object.user.email, object.user) : "user deleted"
   end

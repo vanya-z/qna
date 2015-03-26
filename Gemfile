@@ -62,6 +62,8 @@ gem 'active_model_serializers'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
+gem 'pagedown-bootstrap-rails', git: 'https://github.com/hughevans/pagedown-bootstrap-rails.git'
+gem 'redcarpet'
 # gem 'oj'
 # gem 'oj_mimic_json'
 

@@ -15,7 +15,7 @@
           .answer-stat= answers_count(question)
         .col-xs-10.col-sm-11
           h5= link_to question.title, question
-          p= truncate(question.body, length: 200)
+          p= truncate(markdown_to_text(question.body), length: 200)
           .row
             .col-xs-9
               = tag_list(question) if question.tags.present?

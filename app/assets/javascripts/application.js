@@ -18,4 +18,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-tagsinput
 //= require jasny-bootstrap
+//= require pagedown_bootstrap
+//= require pagedown_init
 //= require_tree .

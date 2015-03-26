@@ -3,8 +3,9 @@
     = f.label :title
     = f.text_field :title, class: 'form-control'
   .form-group
-    = f.label :body
-    = f.text_area :body, class: 'form-control', rows: 15
+    #wmd-button-bar-body
+    = f.text_area :body, class: 'form-control wmd-input', id: 'wmd-input-body', rows: 10
+    #wmd-preview-body.wmd-preview
   .form-group
     = f.label :all_tags, 'Tags separated with comma or ENTER'
     = f.text_field :all_tags, data: {"role" => "tagsinput"}, class: 'form-control'

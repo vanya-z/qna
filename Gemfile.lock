@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/hughevans/pagedown-bootstrap-rails.git
+  revision: 92070c83c56c53b70880a263470a34e937540c91
+  specs:
+    pagedown-bootstrap-rails (2.1.2)
+      railties (> 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -194,6 +201,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.1)
       json (~> 1.4)
+    redcarpet (3.2.2)
     ref (1.0.5)
     remotipart (1.2.1)
     responders (1.1.1)
@@ -318,9 +326,11 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   omniauth-twitter
+  pagedown-bootstrap-rails!
   pg
   private_pub
   rails (= 4.1.5)
+  redcarpet
   remotipart
   responders
   rspec-rails

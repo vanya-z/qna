@@ -6,7 +6,7 @@
       .col-xs-1.text-center
         = render 'votes/voting', votable: @question
       .col-xs-11
-        p= @question.body
+        p= markdown(@question.body)
         p
           - @question.attachments.each do |a|
             = link_to icon_by_filename(a.file.identifier), a.file.url, class: 'btn btn-link'
