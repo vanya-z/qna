@@ -15,7 +15,7 @@ feature 'Create answer', %q{
       sign_in(user)
       visit question_path(question)
       within "form#new_answer" do
-        fill_in 'Body', with: 'My answer body'
+        fill_in 'wmd-input-body', with: 'My answer body'
         click_on 'Create'
       end
 

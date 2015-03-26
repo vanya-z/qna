@@ -8,8 +8,9 @@
   h3 Your answer
   = nested_form_for [@question ,@answer], remote: true do |f|
     .form-group
-      = f.label :body
-      = f.text_area :body, class: 'form-control'
+      #wmd-button-bar-body
+      = f.text_area :body, class: 'form-control wmd-input', id: 'wmd-input-body', rows: 10
+      #wmd-preview-body.wmd-preview
     #create_answer_error.text-danger
     .form-group = f.fields_for :attachments
     .form-group = f.link_to_add "Add file", :attachments

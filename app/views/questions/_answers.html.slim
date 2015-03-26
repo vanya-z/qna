@@ -9,7 +9,7 @@
               .text-success
                 i.fa.fa-check-circle.fa-2x
           .col-xs-11
-            p = answer.body
+            p = markdown(answer.body)
             p
               - answer.attachments.each do |a|
                 = link_to icon_by_filename(a.file.identifier), a.file.url, class: 'btn btn-link'
@@ -18,7 +18,10 @@
           = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
         = accept_discard_link(answer) if can? :manage, @question
       = nested_form_for answer, remote: true do |f|
-        .form-group = f.text_area :body, class: 'form-control', id: "edit_answer_#{answer.id}"
+        .form-group
+          #wmd-button-bar-body
+          = f.text_area :body, class: 'form-control wmd-input', id: "wmd-input-body", rows: 10
+          #wmd-preview-body.wmd-preview
         .text-danger id="edit_body_error_#{answer.id}"
         .form-group = f.fields_for :attachments
         .form-group = f.link_to_add "Add file", :attachments

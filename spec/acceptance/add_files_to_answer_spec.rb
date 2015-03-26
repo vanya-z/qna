@@ -16,7 +16,7 @@ feature 'Add files to answer', %q{
 
   scenario 'User adds file to answer', js: true do
     within "form#new_answer" do
-      fill_in 'Body', with: 'My answer'
+      fill_in 'wmd-input-body', with: 'My answer'
       click_on 'Add file'
       attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
       click_on 'Create'
