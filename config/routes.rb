@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: [:commentable, :votable], shallow: true do
-    resources :answers, only: [:create, :update, :destroy] do
+    resources :answers, only: [:edit, :create, :update, :destroy] do
       member do
         post 'accept'
         post 'discard'

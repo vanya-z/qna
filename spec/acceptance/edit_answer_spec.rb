@@ -22,24 +22,20 @@ feature 'Answer editing', %q{
       sign_in user
       visit question_path(question_answered)
       click_on 'Edit'
-      within '.answers' do
-        fill_in "edit_answer_#{own_answer.id}", with: 'edited answer'
-        click_on 'Update Answer'
-        expect(page).to_not have_content answer.body
-        expect(page).to have_content 'edited answer'
-        expect(page).to_not have_selector 'textarea'
-      end
+      fill_in "wmd-input-body", with: 'edited answer'
+      click_on 'Update Answer'
+      expect(page).to_not have_content answer.body
+      expect(page).to have_content 'edited answer'
     end
 
     scenario 'try to cancel editing his answer', js: true do
       sign_in user
       visit question_path(question_answered)
       click_on 'Edit'
-      within '.answers' do
-        click_on 'Cancel'
-        expect(page).to have_content answer.body
-        expect(page).to_not have_selector 'textarea'
-      end
+      expect(current_path).to eq(edit_answer_path(own_answer))
+      click_on 'Cancel'
+      expect(page).to have_content answer.body
+      expect(current_path).to eq(question_path(question_answered))
     end
     
     scenario 'try to edit other user\'s answer' do

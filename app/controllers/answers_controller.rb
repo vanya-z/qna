@@ -3,17 +3,23 @@ class AnswersController < ApplicationController
   load_and_authorize_resource
   before_action :load_question, only: [:create]
   before_action :load_answer, except: [:create]
-  before_action :set_question, except: [:create]
+  before_action :set_question, except: [:edit, :create]
 
   respond_to :js
+
+  def edit    
+  end
 
   def create
     respond_with(@answer = @question.answers.create(answer_params.merge(user_id: current_user.id)))
   end
 
   def update    
-    @answer.update(answer_params)
-    respond_with @answer
+    if @answer.update(answer_params)
+      redirect_to question_path(@answer.question, anchor: "answer_body_#{@answer.id}")
+    else
+      render :edit
+    end
   end
 
   def destroy

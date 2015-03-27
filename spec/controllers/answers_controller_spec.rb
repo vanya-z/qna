@@ -58,7 +58,7 @@ RSpec.describe AnswersController, :type => :controller do
 
       it 'renders template update.js.erb' do
         patch :update, question_id: answer.question, id: answer, answer: attributes_for(:answer), format: :js
-        expect(response).to render_template :update
+        expect(response).to redirect_to question_path(question, anchor: "answer_body_#{answer.id}")
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe AnswersController, :type => :controller do
       end
 
       it 'renders template update.js.erb' do
-        expect(response).to render_template :update
+        expect(response).to render_template :edit
       end
     end
   end
