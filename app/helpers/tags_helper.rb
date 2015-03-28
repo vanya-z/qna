@@ -6,10 +6,6 @@ module TagsHelper
     end
   end
 
-  def tag_count(tag)
-    tag_all(tag).count
-  end
-
   def tag_answers_count(tags, duration)
     tags.where("created_at > ?", Time.now - duration).count
   end
