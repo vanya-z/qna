@@ -2,9 +2,9 @@
   .col-xs-12
     ul.nav.nav-tabs
       h4.pull-left= current_page?(root_path) || current_page?(questions_path) ? 'All Questions' : 'Tagged Questions'
-      li.pull-right class="#{ params[:sort] == 'unanswered' ? 'active' : nil }" = link_to 'unanswered', sort: 'unanswered'
-      li.pull-right class="#{ params[:sort] == 'newest' ? 'active' : nil }" = link_to 'newest', sort: 'newest'
-      li.pull-right class="#{ params[:sort] == 'votes' ? 'active' : nil }" = link_to 'votes', sort: 'votes'
+      li.pull-right class="#{ cookies[:sort] == 'unanswered' ? 'active' : nil }" = link_to 'unanswered', sort: 'unanswered'
+      li.pull-right class="#{ cookies[:sort] == 'newest' ? 'active' : nil }" = link_to 'newest', sort: 'newest'
+      li.pull-right class="#{ cookies[:sort] == 'votes' ? 'active' : nil }" = link_to 'votes', sort: 'votes'
 - @questions.each do |question|
   .row
     .col-xs-12

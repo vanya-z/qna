@@ -18,9 +18,9 @@ module ApplicationHelper
   end
 
   def answers_count(question)
-    klass = question.answers.count > 0 ? question.answers.find_by(is_accepted: true).present? ? 'bg-primary text-accepted' : 'bg-primary text-muted' : nil
+    klass = question.answers_count > 0 ? question.answers.find_by(is_accepted: true).present? ? 'bg-primary text-accepted' : 'bg-primary text-muted' : nil
     content_tag(:div, class: klass) do
-      content_tag(:div, question.answers.count) +
+      content_tag(:div, question.answers_count) +
       content_tag(:div, content_tag(:small, 'answers'))
     end
   end

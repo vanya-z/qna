@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   respond_to :html, :js
 
   def index
-    respond_with(@questions = params[:tag] ? Question.tagged_with(params[:tag]) : Question.all)
+    respond_with(@questions = params[:tag] ? Question.tagged_with(params[:tag]).sorting(sort_params) : Question.sorting(sort_params))
   end
 
   def show
@@ -47,5 +47,11 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, :all_tags, attachments_attributes: [:id, :file, :_destroy])
+  end
+
+  def sort_params
+    sort = ['votes', 'newest', 'unanswered'].include?(params[:sort]) ? params[:sort] : cookies[:sort] || 'votes'
+    cookies[:sort] = sort
+    sort
   end
 end

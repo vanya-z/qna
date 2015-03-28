@@ -29,4 +29,14 @@ class Question < ActiveRecord::Base
   def self.tagged_with(name)
     Tag.find_by_name!(name).questions
   end
+
+  def self.sorting(sort_params)
+    if sort_params == 'newest'
+      order('created_at DESC')
+    elsif sort_params == 'unanswered'
+      where(answers_count: 0)
+    else
+      order('cached_votes_score DESC')
+    end
+  end
 end

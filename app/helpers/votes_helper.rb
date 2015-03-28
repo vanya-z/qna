@@ -21,7 +21,7 @@ module VotesHelper
   end
 
   def votes(votable)
-    content_tag(:div, votable.get_upvotes.size - votable.get_downvotes.size, class: 'votes')
+    content_tag(:div, votable.cached_votes_score, class: 'votes')
   end
 
   def votable_votes_path(votable, options = {})
