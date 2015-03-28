@@ -10,43 +10,40 @@ module TagsHelper
     tag_all(tag).count
   end
 
+  def tag_answers_count(tags, duration)
+    tags.where("created_at > ?", Time.now - duration).count
+  end
+
   def tag_statistic(tag)
     tags = tag_all(tag)
-    day = tags.where("created_at > ?", Time.now - 1.day).count
-    week = tags.where("created_at > ?", Time.now - 1.week).count
-    month = tags.where("created_at > ?", Time.now - 1.month).count
-    year = tags.where("created_at > ?", Time.now - 1.year).count
+    # first_tag = tags.first
+    # if first_tag
+    #   return str = 'created ' + time_ago_in_words(first_tag.created_at) + ' ago' if first_tag.created_at > Date.today - 45.days
+    # end
 
-    first_tag = tags.first
-    if first_tag
-      return str = 'created ' + time_ago_in_words(first_tag.created_at) + ' ago' if first_tag.created_at > Date.today - 45.days
+    periods = [
+      {name: 'day', answers_count: tag_answers_count(tags, 1.day)},
+      {name: 'week', answers_count: tag_answers_count(tags, 1.week)},
+      {name: 'month', answers_count: tag_answers_count(tags, 1.month)},
+      {name: 'year', answers_count: tag_answers_count(tags, 1.year)}
+    ]
+
+    str = periods[0][:answers_count] > 0 ? periods[0][answers_count].to_s + ' asked today' : ''
+    last_p = nil
+
+    periods.each_with_index do |p, i|
+      if last_p.present?
+        if p[:answers_count] > last_p[:answers_count] && last_p[:answers_count] > 0
+          return str << ', ' + p[:answers_count].to_s + " this #{p[:name]}"
+        elsif p[:answers_count] > last_p[:answers_count] && last_p[:answers_count] == 0
+          str << p[:answers_count].to_s + " asked this #{p[:name]}"
+        else
+          str << ''
+        end
+      end
+      last_p = p
     end
-
-    str = day > 0 ? day.to_s + ' asked today' : ''
-
-    if week > day && day > 0
-      return str += ', ' + week.to_s + ' this week'
-    elsif week > day && day == 0
-      str += week.to_s + ' asked this week'
-    else
-      str += ''
-    end
-
-    if month > week && week > 0
-      return str += ', ' + month.to_s + ' this month'
-    elsif month > week && week == 0
-      str += month.to_s + ' asked this month'
-    else
-      str += ''
-    end
-
-    if year > month && month > 0
-      return str += ', ' + year.to_s + ' this year'
-    elsif year > month && month == 0
-      str += year.to_s + ' asked this year'
-    else
-      str += ''
-    end
+    str
   end
 
   def tag_all(tag)
