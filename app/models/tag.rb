@@ -4,10 +4,10 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def self.sorting(sort_params)
-    if sort_params == 'new'
+  def self.tabing(tab_params)
+    if tab_params == 'new'
       order('created_at DESC')
-    elsif sort_params == 'name'
+    elsif tab_params == 'name'
       order('name')
     else
       order('taggings_count DESC')

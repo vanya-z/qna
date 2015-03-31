@@ -6,43 +6,36 @@ module TagsHelper
     end
   end
 
-  def tag_answers_count(tags, duration)
-    tags.where("created_at > ?", Time.now - duration).count
+  def questions_count(questions, period)
+    time_now = Time.now
+    questions.where(created_at: (time_now - period)..time_now).count
   end
 
   def tag_statistic(tag)
-    tags = tag_all(tag)
-    # first_tag = tags.first
-    # if first_tag
-    #   return str = 'created ' + time_ago_in_words(first_tag.created_at) + ' ago' if first_tag.created_at > Date.today - 45.days
-    # end
-
-    periods = [
-      {name: 'day', answers_count: tag_answers_count(tags, 1.day)},
-      {name: 'week', answers_count: tag_answers_count(tags, 1.week)},
-      {name: 'month', answers_count: tag_answers_count(tags, 1.month)},
-      {name: 'year', answers_count: tag_answers_count(tags, 1.year)}
-    ]
-
-    str = periods[0][:answers_count] > 0 ? periods[0][answers_count].to_s + ' asked today' : ''
-    last_p = nil
-
-    periods.each_with_index do |p, i|
-      if last_p.present?
-        if p[:answers_count] > last_p[:answers_count] && last_p[:answers_count] > 0
-          return str << ', ' + p[:answers_count].to_s + " this #{p[:name]}"
-        elsif p[:answers_count] > last_p[:answers_count] && last_p[:answers_count] == 0
-          str << p[:answers_count].to_s + " asked this #{p[:name]}"
-        else
-          str << ''
+    questions = tag.questions
+    if cookies[:tags_tab] == 'new'
+      return stat = 'created ' + time_ago_in_words(tag.created_at) + ' ago'
+    else
+      periods = [
+        ['day', 1, questions_count(questions, 1.day)],
+        ['week', 7, questions_count(questions, 1.week)],
+        ['month', 30,questions_count(questions, 1.month)],
+        ['year', 365, questions_count(questions, 1.year)]]
+      stat = periods[0][2] > 0 ? link_to("#{periods[0][2]} asked today", tag_path(tag.name, sort: 'newest', days: 1)) : ''
+      last_period = nil
+      periods.each do |p|
+        if last_period.present?
+          if p[2] > last_period[2] && last_period[2] > 0
+            return stat.html_safe << link_to(", #{p[2]} this #{p[0]}", tag_path(tag.name, sort: 'newest', days: p[1]))
+          elsif p[2] > last_period[2] && last_period[2] == 0
+            stat << link_to("#{p[2]} asked this #{p[0]}", tag_path(tag.name, sort: 'newest', days: p[1]))
+          else
+            stat << ''
+          end
         end
+        last_period = p
       end
-      last_p = p
+      stat.html_safe
     end
-    str
-  end
-
-  def tag_all(tag)
-    Tagging.where(tag_id: tag)
   end
 end

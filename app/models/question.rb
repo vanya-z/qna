@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   belongs_to :user
 
@@ -11,6 +11,8 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   acts_as_votable
+
+  scope :created_after, ->(time) { where(created_at: (Time.now - time)..Time.now) }
 
   def discard_questions
     self.answers.update_all(is_accepted: false)
@@ -27,13 +29,13 @@ class Question < ActiveRecord::Base
   end
 
   def self.tagged_with(name)
-    Tag.find_by_name!(name).questions
+    Tag.find_by!(name: name).questions
   end
 
-  def self.sorting(sort_params)
-    if sort_params == 'newest'
-      order('created_at DESC')
-    elsif sort_params == 'unanswered'
+  def self.sorting(sort, duration = nil)
+    if sort == 'newest'
+      duration ? created_after(duration.to_i.days).order('created_at DESC') : order('created_at DESC')
+    elsif sort == 'unanswered'
       where(answers_count: 0)
     else
       order('cached_votes_score DESC')

@@ -2,9 +2,9 @@
   .col-xs-12
     ul.nav.nav-tabs
       h4.pull-left Tags
-      li.pull-right class="#{ cookies[:tags_sort] == 'new' ? 'active' : nil }" = link_to 'new', tab: 'new'
-      li.pull-right class="#{ cookies[:tags_sort] == 'name' ? 'active' : nil }" = link_to 'name', tab: 'name'
-      li.pull-right class="#{ cookies[:tags_sort] == 'popular' ? 'active' : nil }" = link_to 'popular', tab: 'popular'
+      li.pull-right class="#{ cookies[:tags_tab] == 'new' ? 'active' : nil }" = link_to 'new', tab: 'new'
+      li.pull-right class="#{ cookies[:tags_tab] == 'name' ? 'active' : nil }" = link_to 'name', tab: 'name'
+      li.pull-right class="#{ cookies[:tags_tab] == 'popular' ? 'active' : nil }" = link_to 'popular', tab: 'popular'
 - @tags.each_slice(4) do |slice|
   .row
     - slice.each do |tag|
