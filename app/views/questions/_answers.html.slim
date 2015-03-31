@@ -1,4 +1,4 @@
-- @question.answers.each do |answer|
+- @question.answers.order(is_accepted: :desc).each do |answer|
   .mt-20
     - if answer.persisted?
       div class="panel panel-#{ answer.is_accepted ? 'success' : 'default' } panel-condensed" id="answer_body_#{answer.id}"

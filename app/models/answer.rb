@@ -8,8 +8,6 @@ class Answer < ActiveRecord::Base
   
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
-  default_scope { order('created_at') }
-
   acts_as_votable
 
   def accept
