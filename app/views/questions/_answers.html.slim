@@ -6,7 +6,7 @@
           .col-xs-1.text-center
             = render 'votes/voting', votable: answer
             -if answer.is_accepted?
-              .text-success
+              .text-success title='The question owner accepted this as the best answer'
                 i.fa.fa-check-circle.fa-2x
           .col-xs-11
             p = markdown(answer.body)

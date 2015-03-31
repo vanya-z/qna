@@ -9,13 +9,13 @@ module VotesHelper
   end
 
   def vote_up(votable)
-    link_to votable_votes_path(votable, vote: 'up'), method: :post, remote: true do
+    link_to votable_votes_path(votable, vote: 'up'), title: votable.class.to_s == 'Question' ? 'This question shows research effort; it is useful and clear' : 'This answer is useful', method: :post, remote: true do
       content_tag(:i, nil, class: 'fa fa-chevron-circle-up fa-2x')
     end
   end
 
   def vote_down(votable)
-    link_to votable_votes_path(votable, vote: 'down'), method: :post, remote: true do
+    link_to votable_votes_path(votable, vote: 'down'), title: votable.class.to_s == 'Question' ? 'This question does not show any research effort; it is unclear or not useful' : 'This answer is not useful', method: :post, remote: true do
       content_tag(:i, nil, class: 'fa fa-chevron-circle-down fa-2x')
     end
   end

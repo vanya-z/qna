@@ -6,6 +6,10 @@
 @import "jasny-bootstrap";
 @import "pagedown_bootstrap";
 @import "*";
+
+a, a:hover, .btn-link:hover {
+  text-decoration: none;
+}
 .navbar {
   border-radius: 0;
   height: 30px;
