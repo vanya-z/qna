@@ -14,11 +14,8 @@ nav.navbar.navbar-inverse role="navigation"
           input.form-control.input-sm placeholder="Search" type="text" 
       ul.nav.navbar-nav.navbar-right
         - unless signed_in?
-          li
-            = link_to 'Sign up', new_user_registration_path
-          li
-            = link_to 'Log in', new_user_session_path
+          li = link_to 'Sign up', new_user_registration_path
+          li = link_to 'Log in', new_user_session_path
         - else
-          p.navbar-text Signed in as #{link_to "#{current_user.email}", edit_user_registration_path}
-          li
-            = link_to 'Log out', destroy_user_session_path, method: :delete
+          .navbar-text.avatar = user_avatar_link(current_user)
+          li = link_to 'Log out', destroy_user_session_path, method: :delete

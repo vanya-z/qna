@@ -12,19 +12,20 @@ feature 'Signing in with omni-provider', %q{
 
   scenario "New user try to sign in with facebook" do
     visit new_user_session_path
-    expect(page).to have_link 'Sign in with Facebook'
+    expect(page).to have_link 'facebook'
 
     set_omniauth_facebook
-    click_link 'Sign in with Facebook'
+    click_link 'facebook'
+    # save_and_open_page
     expect(page).to have_content 'Successfully authenticated from Facebook account.'
   end
 
   scenario "New user try to sign in with twitter" do
     visit new_user_session_path
-    expect(page).to have_link 'Sign in with Twitter'
+    expect(page).to have_link 'twitter'
 
     set_omniauth_twitter
-    click_link 'Sign in with Twitter'
+    click_link 'twitter'
     expect(page).to have_content 'Setting email'
 
     fill_in 'Email', with: 'test@example.com'
@@ -33,7 +34,7 @@ feature 'Signing in with omni-provider', %q{
 
     open_email('test@example.com')
     current_email.click_link 'Confirm my account'
-    click_link 'Sign in with Twitter'
+    click_link 'twitter'
     expect(page).to have_content 'Successfully authenticated from Twitter account.'
   end
 end

@@ -20,4 +20,4 @@
             .col-xs-9
               = tag_list(question) if question.tags.present?
             .col-xs-3
-              small.text-muted= 'asked ' + created_at(question)
+              = created_by_block(question)

@@ -1,5 +1,9 @@
 h2 Setting email
 p To complete the registration please enter your email
-= simple_form_for(@user, url: registration_via_provider_path, defaults: { input_html: { class: 'form-control' } }) do |f|
-  = f.input :email
-  = f.button :submit, 'Finish'
+.row
+  .col-xs-12.col-sm-6.col-md-5
+    = form_for @user, url: registration_via_provider_path do |f|
+      .form-group
+        = f.label :email
+        = f.text_field :email, autofocus: true, class: "form-control"
+      = f.submit "Finish", class: 'btn btn-default'

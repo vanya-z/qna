@@ -1,5 +1,44 @@
 module ApplicationHelper
 
+  def social_icon(provider)
+    icons = {
+      facebook: 'fa-facebook-official',
+      twitter: 'fa-twitter-square',
+      vk: 'fa-vk'
+    }
+    content_tag(:i, nil, class: "fa fa-2x ml-5 #{icons[provider]}")
+  end
+
+  def user_avatar_link(user)
+    user == current_user ? link_to(avatar_email(user), edit_user_registration_path) : link_to(avatar_email(user), user)
+  end
+
+  def avatar_email(user)
+    content_tag(:span, (image_tag avatar_url(user), class: 'img-circle')) +
+    content_tag(:small, user.email, class: 'ml-5')
+  end
+
+  def avatar_url(user)
+    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=32"
+  end
+
+  def deleted_user
+    content_tag(:span, (image_tag 'avatar.png', size: "32x32", alt: 'user deleted', class: 'img-circle')) +
+    content_tag(:small, 'user deleted', class: 'ml-5')
+  end
+
+  def created_by_block(object)
+    content_tag(:div, class: "#{ object.class.to_s == 'Answer' && object.is_accepted ? 'bg-success pl-5' : 'pl-5' }") do
+      content_tag(:small, class: 'text-muted') do
+        "#{object.class.to_s == 'Answer' ? 'answered ' : 'asked '}" + created_at(object)
+      end +
+      content_tag(:div, class: 'pv-5') do
+        object.user ? user_avatar_link(object.user) : deleted_user
+      end
+    end    
+  end
+
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true)
     Redcarpet::Markdown.new(renderer, options = {}).render(text).html_safe
@@ -9,8 +48,8 @@ module ApplicationHelper
     Nokogiri::HTML(markdown(text)).text
   end
 
-  def link_to_author(object)
-    object.user ? link_to(object.user.email, object.user) : "user deleted"
+  def link_to_author(object, options = {})
+    object.user ? link_to(object.user.email, object.user, options) : "user deleted"
   end
 
   def created_at(object)

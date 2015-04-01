@@ -1,5 +1,9 @@
 h2 Resend confirmation instructions
-= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }, defaults: { input_html: { class: 'form-control' } }) do |f|
-  = f.input :email, autofocus: true
-  = f.button :submit, "Resend confirmation instructions"
-= render "devise/shared/links"
+.row
+  .col-xs-12.col-sm-6.col-md-5
+    = form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post } do |f|
+      .form-group
+        = f.label :email
+        = f.text_field :email, autofocus: true, class: "form-control"
+      = f.submit "Resend confirmation instructions", class: 'btn btn-default'
+    = render "devise/shared/links"

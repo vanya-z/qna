@@ -1,3 +1,4 @@
+h4 #{pluralize(@question.answers.count, 'Answer')}
 - @question.answers.order(is_accepted: :desc).each do |answer|
   .mt-20
     - if answer.persisted?
@@ -13,10 +14,13 @@
             p
               - answer.attachments.each do |a|
                 = link_to icon_by_filename(a.file.identifier), a.file.url, class: 'btn btn-link'
-        - if can? :manage, answer
-          = link_to 'Edit', edit_answer_path(answer), class: "btn btn-link"
-          = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
-        = accept_discard_link(answer) if can? :manage, @question
+        .row
+          .col-xs-8.col-xs-offset-1
+            - if can? :manage, answer
+              = link_to 'Edit', edit_answer_path(answer), class: "btn btn-link"
+              = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
+            = accept_discard_link(answer) if can? :manage, @question
+          .col-xs-3 = created_by_block(answer)
       .row
         .col-xs-11.col-xs-offset-1
           = render 'comments/list', parent: answer
