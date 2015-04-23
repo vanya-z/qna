@@ -18,6 +18,18 @@ module ApplicationHelper
     content_tag(:small, user.email, class: 'ml-5')
   end
 
+  def user_avatar_email_block(user)
+    content_tag(:div, class: 'pv-5') do
+      user ? user_avatar_link(user) : deleted_user
+    end
+  end
+
+  def user_avatar_email_block(user)
+    content_tag(:div, class: 'pv-5') do
+      user ? user_avatar_link(user) : deleted_user
+    end
+  end
+
   def avatar_url(user)
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=32"
@@ -33,9 +45,7 @@ module ApplicationHelper
       content_tag(:small, class: 'text-muted') do
         "#{object.class.to_s == 'Answer' ? 'answered ' : 'asked '}" + created_at(object)
       end +
-      content_tag(:div, class: 'pv-5') do
-        object.user ? user_avatar_link(object.user) : deleted_user
-      end
+      user_avatar_email_block(object.user)
     end    
   end
 

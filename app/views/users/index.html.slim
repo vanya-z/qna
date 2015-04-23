@@ -1,0 +1,13 @@
+.row
+  .col-xs-12
+    ul.nav.nav-tabs
+      h4.pull-left Users
+      li.pull-right class="#{ cookies[:users_tab] == 'new' ? 'active' : nil }" = link_to 'new', tab: 'new'
+      li.pull-right class="#{ cookies[:users_tab] == 'name' ? 'active' : nil }" = link_to 'name', tab: 'name'
+- @users.each_slice(4) do |slice|
+  .row
+    - slice.each do |user|
+      .col-xs-12.col-sm-6.col-md-6.col-lg-3
+        .panel-body
+          = user_avatar_email_block(user)
+.pull-right = will_paginate @users, renderer: BootstrapPagination::Rails

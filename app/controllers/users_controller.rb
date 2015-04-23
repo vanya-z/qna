@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   skip_authorization_check
   before_action :load_user, only: :show
+
+  def index
+    respond_with(@users = User.all.paginate(:page => params[:page], :per_page => 36))
+  end
   
   def show    
   end

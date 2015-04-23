@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  get 'users/:id' => 'users#show', as: :user
+  resources :users, only: [:index, :show]
   post 'users/registration_via_provider' => 'users#registration_via_provider', as: :registration_via_provider
   root 'questions#index'
   get 'questions/tagged/:tag', to: 'questions#index', as: "tag"
