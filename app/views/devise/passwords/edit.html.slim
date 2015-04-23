@@ -5,9 +5,9 @@ h2 Change your password
       = f.hidden_field :reset_password_token
       .form-group
         = f.label :password
-        = f.text_field :password, autofocus: true, class: "form-control"
+        = f.password_field :password, autofocus: true, class: "form-control"
       .form-group
         = f.label :password_confirmation
-        = f.text_field :password_confirmation, class: "form-control"
+        = f.password_field :password_confirmation, class: "form-control"
       = f.submit "Change my password", class: 'btn btn-default'
     = render "devise/shared/links"

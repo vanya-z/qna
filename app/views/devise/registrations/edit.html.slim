@@ -9,14 +9,14 @@ h4 Edit my account
           p.help-block Currently waiting confirmation for: #{resource.unconfirmed_email}
       .form-group
         = f.label :password
-        = f.text_field :password, class: "form-control"
+        = f.password_field :password, class: "form-control"
         p.help-block leave blank if you don't want to change it
       .form-group
         = f.label :password_confirmation
-        = f.text_field :password_confirmation, class: "form-control"
+        = f.password_field :password_confirmation, class: "form-control"
       .form-group
         = f.label :current_password
-        = f.text_field :current_password, class: "form-control"
+        = f.password_field :current_password, class: "form-control"
         p.help-block we need your current password to confirm your changes
       = f.submit "Update", class: 'btn btn-default'
     h4 Cancel my account
