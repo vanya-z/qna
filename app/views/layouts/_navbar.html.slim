@@ -9,9 +9,9 @@ nav.navbar.navbar-inverse role="navigation"
         span.icon-bar
       = link_to "QnA Sample", root_path, class: 'navbar-brand'
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
-      form.navbar-form.navbar-right role="search" 
+      = form_tag('/search', method: :get, class: 'navbar-form navbar-right') do
         .form-group
-          input.form-control.input-sm placeholder="Search" type="text" 
+          = text_field_tag 'q', nil, class: 'form-control input-sm', placeholder: 'Search'
       ul.nav.navbar-nav.navbar-right
         - unless signed_in?
           li = link_to 'Sign up', new_user_registration_path

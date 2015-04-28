@@ -1,0 +1,18 @@
+.row
+  .col-xs-12
+    ul.nav.nav-tabs
+      h4.pull-left Search Results
+- if @results.empty?
+  p.text-info no results...
+- @results.each do |result|
+  .row
+    .col-xs-12
+      ul.nav.nav-tabs
+        - if result.class.to_s == 'Question'
+          h5 = link_to result.title, result
+          p = truncate(markdown_to_text(result.body), length: 200)
+        - else
+          h5 = link_to result.question.title, result.question
+          p
+            span.text-info Answer 
+            = truncate(markdown_to_text(result.body), length: 200)

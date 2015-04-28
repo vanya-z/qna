@@ -13,8 +13,11 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.pid
 /tmp
 /config/database.yml
 /config/secrets.yml
 /public/uploads
 /coverage
+/config/*.sphinx.conf
+/db/sphinx/

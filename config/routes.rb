@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   post 'registration_via_provider' => 'users#registration_via_provider', as: :registration_via_provider
   get 'authorization_confirmation' => 'users#authorization_confirmation', as: :authorization_confirmation
+  get 'search' => 'search#index', as: :search
   
   root 'questions#index'
   get 'questions/tagged/:tag', to: 'questions#index', as: "tag"
