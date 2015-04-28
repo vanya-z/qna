@@ -4,13 +4,15 @@ class Question < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 
   validates :title, :body, presence: true
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
   acts_as_votable
+
+  after_create :calculate_rating
 
   scope :created_after, ->(time) { where(created_at: (Time.now - time)..Time.now) }
 
@@ -40,5 +42,11 @@ class Question < ActiveRecord::Base
     else
       order('cached_votes_score DESC')
     end
+  end
+
+  private
+
+  def calculate_rating
+    Reputation.calculate(self)
   end
 end

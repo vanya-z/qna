@@ -9,7 +9,7 @@ html
     = render 'layouts/navbar'
     div.container
       .row
-        .col-md-9
+        .col-md-10
           = render 'layouts/buttons'
           - flash.each do |name, msg|
             .alert.alert-dismissable class="alert-#{ {notice: 'success', info: 'info', alert: 'warning'}[name.to_sym] || 'danger' }"

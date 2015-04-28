@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
   belongs_to :question, counter_cache: true
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many :attachments, as: :attachmentable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -10,6 +10,8 @@ class Answer < ActiveRecord::Base
 
   acts_as_votable
 
+  after_create :calculate_rating
+
   def accept
     self.question.discard_questions
     self.reload.update(is_accepted: true)
@@ -17,5 +19,11 @@ class Answer < ActiveRecord::Base
 
   def discard
   	self.update(is_accepted: false)
+  end
+
+  private
+
+  def calculate_rating
+    Reputation.calculate(self)
   end
 end

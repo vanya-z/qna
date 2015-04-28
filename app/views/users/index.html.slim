@@ -4,6 +4,7 @@
       h4.pull-left Users
       li.pull-right class="#{ cookies[:users_tab] == 'new' ? 'active' : nil }" = link_to 'new', tab: 'new'
       li.pull-right class="#{ cookies[:users_tab] == 'name' ? 'active' : nil }" = link_to 'name', tab: 'name'
+      li.pull-right class="#{ cookies[:users_tab] == 'reputation' ? 'active' : nil }" = link_to 'reputation', tab: 'reputation'
 - @users.each_slice(4) do |slice|
   .row
     - slice.each do |user|

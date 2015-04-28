@@ -11,6 +11,16 @@ class User < ActiveRecord::Base
 
   acts_as_voter
 
+  def self.sorting(sort)
+    if sort == 'new'
+      order('created_at DESC')
+    elsif sort == 'name'
+      order('email')
+    else
+      order('reputation DESC')
+    end
+  end
+
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization && authorization.confirmed_at?

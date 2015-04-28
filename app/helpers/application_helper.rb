@@ -27,10 +27,13 @@ module ApplicationHelper
 
   def user_info_block(user)
     content_tag(:div, class: 'pv-5 text-center') do
-      link_to user do
-        content_tag(:p, (image_tag avatar_url(user, 96), class: 'img-circle')) +
-        content_tag(:small, user.email, class: 'ml-5')
-      end
+      content_tag(:div) do
+        link_to user do
+          content_tag(:p, (image_tag avatar_url(user, 96), class: 'img-circle')) +
+          content_tag(:small, user.email)
+        end
+      end +
+      content_tag(:strong, user.reputation, class: 'small')
     end
   end
 

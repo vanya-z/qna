@@ -1,1 +1,8 @@
-h3 = @user.email
+.row
+  .col-md-3 = image_tag avatar_url(@user, 160), class: 'img-circle img-responsive center-block'
+  .col-md-9
+    h4 = @user.email
+    p Registered #{time_ago_in_words(@user.created_at)} ago
+    p Questions Ask: #{@user.questions_count}
+    p Answers Given: #{@user.answers_count}
+    p Reputation: #{@user.reputation}

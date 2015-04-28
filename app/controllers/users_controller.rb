@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :load_user, only: [:show, :password, :set_password]
 
   def index
-    respond_with(@users = User.all.paginate(:page => params[:page], :per_page => 36))
+    respond_with(@users = User.sorting(sort).paginate(:page => params[:page], :per_page => 36))
   end
   
   def show    
@@ -41,6 +41,12 @@ class UsersController < ApplicationController
 
   def load_user
     @user = User.find(params[:id])
+  end
+
+  def sort
+    sort = ['new', 'name', 'reputation'].include?(params[:tab]) ? params[:tab] : cookies[:users_tab] || 'reputation'
+    cookies[:users_tab] = sort
+    sort
   end
 
   def user_params
