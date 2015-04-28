@@ -1,7 +1,7 @@
-h2 Log in
 .row
-  .col-xs-12.col-sm-6.col-md-5
+  .col-xs-12.col-sm-6.col-md-4.col-sm-offset-3.col-md-offset-4
     = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
+      h2 Log in
       .form-group
         = f.label :email
         = f.text_field :email, autofocus: true, class: "form-control"
@@ -13,5 +13,5 @@ h2 Log in
           label
             = f.check_box :remember_me
             | remember me
-      = f.submit "Log in", class: 'btn btn-default'
+      = f.submit "Log in", class: 'btn btn-block btn-lg btn-success'
     = render "devise/shared/links"

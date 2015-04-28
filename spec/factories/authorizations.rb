@@ -5,5 +5,8 @@ FactoryGirl.define do
     user nil
     provider "MyString"
     uid "MyString"
+    confirmation_token nil
+    confirmation_token_sent_at nil
+    confirmed_at nil
   end
 end

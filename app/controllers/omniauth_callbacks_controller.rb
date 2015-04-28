@@ -9,6 +9,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def twitter
   end
 
+  def vkontakte
+  end
+
+  def github
+  end
+
   private
 
   def find_user

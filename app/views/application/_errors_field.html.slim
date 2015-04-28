@@ -1,0 +1,11 @@
+- if object.errors.any?
+  .alert.alert-dismissable.alert-warning
+    a.close data-dismiss="alert" &times
+    - if object.errors.count == 1
+      - object.errors.full_messages.each do |msg|
+        p = msg
+    - else
+      h4 #{pluralize(object.errors.count, 'error')}:
+      ol
+        - object.errors.full_messages.each do |msg|
+          li = msg

@@ -25,5 +25,6 @@ class Ability
     guest_abilities
     can :manage, [Question, Answer, Comment], user: user
     can [:accept, :discard], Answer, question: { user: user }
+    can [:password, :set_password], User, id: user.id, password_is_set: false
   end
 end

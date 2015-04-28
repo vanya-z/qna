@@ -4,6 +4,9 @@ class CreateAuthorizations < ActiveRecord::Migration
       t.references :user, index: true
       t.string :provider
       t.string :uid
+      t.string :confirmation_token
+      t.datetime :confirmation_token_sent_at
+      t.datetime :confirmed_at
 
       t.timestamps
     end

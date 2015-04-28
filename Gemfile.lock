@@ -159,6 +159,9 @@ GEM
       rack (~> 1.0)
     omniauth-facebook (2.0.0)
       omniauth-oauth2 (~> 1.2)
+    omniauth-github (1.1.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -170,6 +173,10 @@ GEM
     omniauth-twitter (1.1.0)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
+    omniauth-vkontakte (1.3.3)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     orm_adapter (0.5.0)
     parser (2.2.0.pre.5)
       ast (>= 1.1, < 3.0)
@@ -325,7 +332,9 @@ DEPENDENCIES
   nested_form
   omniauth
   omniauth-facebook
+  omniauth-github
   omniauth-twitter
+  omniauth-vkontakte
   pagedown-bootstrap-rails!
   pg
   private_pub

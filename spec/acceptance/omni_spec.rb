@@ -16,8 +16,16 @@ feature 'Signing in with omni-provider', %q{
 
     set_omniauth_facebook
     click_link 'facebook'
-    # save_and_open_page
     expect(page).to have_content 'Successfully authenticated from Facebook account.'
+  end
+
+  scenario "New user try to sign in with vkontakte" do
+    visit new_user_session_path
+    expect(page).to have_link 'vkontakte'
+
+    set_omniauth_vkontakte
+    click_link 'vkontakte'
+    expect(page).to have_content 'Successfully authenticated from Vkontakte account.'
   end
 
   scenario "New user try to sign in with twitter" do
@@ -30,11 +38,27 @@ feature 'Signing in with omni-provider', %q{
 
     fill_in 'Email', with: 'test@example.com'
     click_button 'Finish'
-    expect(page).to have_content 'You have to confirm your email address before continuing.'
+    expect(page).to have_content 'A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.'
 
     open_email('test@example.com')
     current_email.click_link 'Confirm my account'
-    click_link 'twitter'
     expect(page).to have_content 'Successfully authenticated from Twitter account.'
+  end
+
+  scenario "New user try to sign in with github" do
+    visit new_user_session_path
+    expect(page).to have_link 'github'
+
+    set_omniauth_github
+    click_link 'github'
+    expect(page).to have_content 'Setting email'
+
+    fill_in 'Email', with: 'test@example.com'
+    click_button 'Finish'
+    expect(page).to have_content 'A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.'
+
+    open_email('test@example.com')
+    current_email.click_link 'Confirm my account'
+    expect(page).to have_content 'Successfully authenticated from Github account.'
   end
 end

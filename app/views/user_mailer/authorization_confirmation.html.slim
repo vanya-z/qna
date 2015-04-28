@@ -1,0 +1,4 @@
+p
+  | Welcome #{@email}!
+p You can confirm your account #{@provider.capitalize} through the link below:
+p= link_to 'Confirm my account', authorization_confirmation_url(confirmation_token: @token)

@@ -1,9 +1,10 @@
 - if devise_mapping.omniauthable?
   .pv-10
-    'Sign in with
-    - resource_class.omniauth_providers.each do |provider|
-      = link_to omniauth_authorize_path(resource_name, provider), id: provider do
-        = social_icon(provider)
+    p.text-center Sign in with
+    p.text-center
+      - resource_class.omniauth_providers.each do |provider|
+        = link_to omniauth_authorize_path(resource_name, provider), id: provider do
+          = social_icon(provider)
 - if controller_name != 'sessions'
   p = link_to "Log in", new_session_path(resource_name)
 - if devise_mapping.registerable? && controller_name != 'registrations'

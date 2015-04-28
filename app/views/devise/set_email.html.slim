@@ -1,9 +1,10 @@
-h2 Setting email
-p To complete the registration please enter your email
-.row
-  .col-xs-12.col-sm-6.col-md-5
-    = form_for @user, url: registration_via_provider_path do |f|
+= form_for @user, url: registration_via_provider_path do |f|
+  = render 'errors_field', object: @user
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-sm-offset-3.col-md-offset-4
+      h2 Setting email
+      p To complete the registration please enter your email
       .form-group
         = f.label :email
         = f.text_field :email, autofocus: true, class: "form-control"
-      = f.submit "Finish", class: 'btn btn-default'
+      = f.submit "Finish", class: 'btn btn-block btn-lg btn-success'

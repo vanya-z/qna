@@ -4,13 +4,14 @@ module ApplicationHelper
     icons = {
       facebook: 'fa-facebook-official',
       twitter: 'fa-twitter-square',
-      vk: 'fa-vk'
+      vkontakte: 'fa-vk',
+      github: 'fa-github-square'
     }
     content_tag(:i, nil, class: "fa fa-2x ml-5 #{icons[provider]}")
   end
 
   def user_avatar_link(user)
-    user == current_user ? link_to(avatar_email(user), edit_user_registration_path) : link_to(avatar_email(user), user)
+    user == current_user ? link_to(avatar_email(user), user.password_is_set ? edit_user_registration_path : password_user_path(user)) : link_to(avatar_email(user), user)
   end
 
   def avatar_email(user)
@@ -24,15 +25,18 @@ module ApplicationHelper
     end
   end
 
-  def user_avatar_email_block(user)
-    content_tag(:div, class: 'pv-5') do
-      user ? user_avatar_link(user) : deleted_user
+  def user_info_block(user)
+    content_tag(:div, class: 'pv-5 text-center') do
+      link_to user do
+        content_tag(:p, (image_tag avatar_url(user, 96), class: 'img-circle')) +
+        content_tag(:small, user.email, class: 'ml-5')
+      end
     end
   end
 
-  def avatar_url(user)
+  def avatar_url(user, size = 32)
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=32"
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 
   def deleted_user

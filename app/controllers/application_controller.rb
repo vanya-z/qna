@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
   end
 
   check_authorization unless: :devise_controller?
+
+  def after_sign_in_path_for(resource)
+    current_user.password_is_set ? root_path : password_user_path(current_user)
+  end
 end
