@@ -1,0 +1,18 @@
+development:
+  64bit_timestamps: true
+  morphology: stem_enru
+  enable_star: true
+  expand_keywords: true
+  index_exact_words: true
+  min_infix_len: 3
+  min_word_len: 3
+  html_strip: true  
+production:
+  64bit_timestamps: true
+  morphology: stem_enru
+  enable_star: true
+  expand_keywords: true
+  index_exact_words: true
+  min_infix_len: 3
+  min_word_len: 3
+  html_strip: true
