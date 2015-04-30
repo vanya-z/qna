@@ -7,7 +7,7 @@
     = render 'answers'
   - if signed_in? && @question.user != current_user
     h3 Your answer
-    = nested_form_for [@question ,@answer], remote: true do |f|
+    = nested_form_for [@question, @answer], remote: true do |f|
       .form-group
         #wmd-button-bar-body
         = f.text_area :body, class: 'form-control wmd-input', id: 'wmd-input-body', rows: 10
