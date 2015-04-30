@@ -1,7 +1,8 @@
 - if f.object.persisted?
-  = link_to(icon_by_filename(f.object.file.identifier), f.object.file.url)
-  = f.link_to_remove class: 'text-danger ml-5' do
-    i.fa.fa-times
+  - cache object.file do
+    = link_to(icon_by_filename(f.object.file.identifier), f.object.file.url)
+    = f.link_to_remove class: 'text-danger ml-5' do
+      i.fa.fa-times
 - elsif f.object.new_record?
   .fileinput.fileinput-new.input-group data-provides="fileinput" 
     .form-control data-trigger="fileinput" 

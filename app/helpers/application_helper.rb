@@ -1,5 +1,18 @@
 module ApplicationHelper
 
+  def collection_cache_key_for(model)
+    klass = model.to_s.capitalize.constantize
+    count = klass.count
+    max_updated_at = klass.maximum(:updated_at).try(:utc).try(:to_s, :number)
+    "#{model.to_s.pluralize}/collection-#{count}-#{max_updated_at}"
+  end
+
+  def preview_cache_key_for(object)
+    klass = object.class.to_s.downcase.pluralize
+    updated_at = object.updated_at.try(:utc).try(:to_s, :number)
+    "preview-#{klass}-#{object.id}-#{updated_at}"
+  end
+
   def social_icon(provider)
     icons = {
       facebook: 'fa-facebook-official',
@@ -73,10 +86,10 @@ module ApplicationHelper
     object.created_at.year == Date.today.year ? object.created_at.to_formatted_s(:like_so) : object.created_at.to_formatted_s(:like_so_year)
   end
 
-  def answers_count(question)
-    klass = question.answers_count > 0 ? question.answers.find_by(is_accepted: true).present? ? 'bg-primary text-accepted' : 'bg-primary text-muted' : nil
+  def answers_count(count, accepted_include)
+    klass = accepted_include ? 'bg-primary text-accepted' : 'bg-primary text-muted'
     content_tag(:div, class: klass) do
-      content_tag(:div, question.answers_count) +
+      content_tag(:div, count) +
       content_tag(:div, content_tag(:small, 'answers'))
     end
   end

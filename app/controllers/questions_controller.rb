@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
   respond_to :html, :js
 
   def index
-    respond_with(@questions = params[:tag] ? Question.tagged_with(params[:tag]).sorting(sort, duration) : Question.sorting(sort))
+    respond_with(@questions = params[:tag] ? Question.tagged_with(params[:tag]).sorting(sort, duration) : Question.includes(:answers, :tags).sorting(sort))
   end
 
   def show

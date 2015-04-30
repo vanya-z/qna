@@ -17,7 +17,7 @@ class Question < ActiveRecord::Base
   scope :created_after, ->(time) { where(created_at: (Time.now - time)..Time.now) }
 
   def discard_questions
-    self.answers.update_all(is_accepted: false)
+    self.answers.update_all(is_accepted: false, updated_at: Time.now)
   end
    
   def all_tags

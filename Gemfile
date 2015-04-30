@@ -70,8 +70,8 @@ gem 'redcarpet'
 gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'whenever'
-# gem 'oj'
-# gem 'oj_mimic_json'
+
+gem 'redis-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

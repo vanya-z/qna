@@ -1,18 +1,19 @@
-= render 'question'
-.row
-  .col-md-11.col-md-offset-1
-    = render 'comments/list', parent: @question
-.answers
-  = render 'answers'
-- if signed_in? && @question.user != current_user
-  h3 Your answer
-  = nested_form_for [@question ,@answer], remote: true do |f|
-    .form-group
-      #wmd-button-bar-body
-      = f.text_area :body, class: 'form-control wmd-input', id: 'wmd-input-body', rows: 10
-      #wmd-preview-body.wmd-preview
-    #create_answer_error.text-danger
-    .form-group = f.fields_for :attachments
-    .form-group = f.link_to_add "Add file", :attachments
-    = f.submit class: 'btn btn-default'
+- cache @question do
+  = render 'question'
+  .row
+    .col-md-11.col-md-offset-1
+      = render 'comments/list', parent: @question
+  .answers
+    = render 'answers'
+  - if signed_in? && @question.user != current_user
+    h3 Your answer
+    = nested_form_for [@question ,@answer], remote: true do |f|
+      .form-group
+        #wmd-button-bar-body
+        = f.text_area :body, class: 'form-control wmd-input', id: 'wmd-input-body', rows: 10
+        #wmd-preview-body.wmd-preview
+      #create_answer_error.text-danger
+      .form-group = f.fields_for :attachments
+      .form-group = f.link_to_add "Add file", :attachments
+      = f.submit class: 'btn btn-default'
 = subscribe_to "/question#{@question.id}"

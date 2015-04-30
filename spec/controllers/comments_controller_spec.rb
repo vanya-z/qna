@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, :type => :controller do
   login_user
+  let(:question) { create :question }
+  let(:answer) { create :answer }
 
   describe 'POST #create' do
-    let(:question) { create :question }
-    let(:answer) { create :answer }
 
     it 'loads question if parent is question' do
       post :create, comment: attributes_for(:comment), question_id: question, format: :js
@@ -19,7 +19,7 @@ RSpec.describe CommentsController, :type => :controller do
   end
 
   describe 'PATCH #update' do
-    let(:comment) { create :comment, user: @user }
+    let(:comment) { create :comment, commentable_id: question, commentable_type: question.class.to_s, user: @user }
 
     context 'valid attributes' do
       it 'assigns the requested comment to @comment' do
@@ -53,7 +53,7 @@ RSpec.describe CommentsController, :type => :controller do
   end
 
   describe 'DELETE #comment' do
-    let!(:comment) { create :comment, user: @user }
+    let!(:comment) { create :comment, commentable_id: question, commentable_type: question.class.to_s, user: @user }
 
     it 'deletes comment' do
       expect { delete :destroy, id: comment, format: :js }.to change(Comment, :count).by(-1)
