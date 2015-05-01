@@ -6,7 +6,8 @@ development:
   index_exact_words: true
   min_infix_len: 3
   min_word_len: 3
-  html_strip: true  
+  html_strip: true
+  mysql41: 9313
 production:
   64bit_timestamps: true
   morphology: stem_enru
@@ -16,3 +17,4 @@ production:
   min_infix_len: 3
   min_word_len: 3
   html_strip: true
+  mysql41: 9313
