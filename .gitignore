@@ -17,6 +17,7 @@
 /tmp
 /config/database.yml
 /config/secrets.yml
+/config/private_pub.yml
 /public/uploads
 /coverage
 /config/*.sphinx.conf
