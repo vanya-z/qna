@@ -398,6 +398,7 @@ DEPENDENCIES
   launchy
   mysql2
   nested_form
+  nokogiri
   omniauth
   omniauth-facebook
   omniauth-github

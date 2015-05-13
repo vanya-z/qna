@@ -75,6 +75,7 @@ module ApplicationHelper
   end
   
   def markdown_to_text(text)
+    require 'nokogiri'
     Nokogiri::HTML(markdown(text)).text
   end
 
