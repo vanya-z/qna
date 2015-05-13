@@ -1,10 +1,9 @@
 .row
   .col-xs-12
     ul.nav.nav-tabs.pv-3 id="comment_body_#{comment.id}"
-      - cache comment do
-        = "#{comment.body} – "
-        = link_to_author(comment)
-        span.text-muted= ' ' + created_at(comment)
+      = "#{comment.body} – "
+      = link_to_author(comment)
+      span.text-muted= ' ' + created_at(comment)
       - if can? :manage, comment
         = link_to 'edit', '', class: 'btn-link edit-comment-link ml-5', data: {comment_id: comment.id}
         = link_to 'remove', comment, class: 'btn-link ml-5', method: :delete, remote: true, data: {confirm: 'Are you sure?'}
