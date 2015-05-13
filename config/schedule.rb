@@ -1,3 +1,3 @@
-every :reboot do  
-  rake "unicorn:restart"
+every 30.minutes do
+  rake "ts:index"
 end
