@@ -1,5 +1,5 @@
 .row
-  .col-xs-12
+  .col-md-12
     ul.nav.nav-tabs
       h4.pull-left= current_page?(root_path) || current_page?(questions_path) ? 'All Questions' : 'Tagged Questions'
       li.pull-right class="#{ cookies[:sort] == 'unanswered' ? 'active' : nil }" = link_to 'unanswered', sort: 'unanswered'
@@ -8,17 +8,17 @@
 - @questions.each do |question|
   - cache preview_cache_key_for(question) do
     .row
-      .col-xs-12
+      .col-md-12
         ul.nav.nav-tabs
-          .col-xs-2.col-sm-1.text-center.nopadding
+          .col-md-1.text-center.nopadding
             .text-muted
               = votes_stat(question)
             .answer-stat= answers_count(question.answers_count, question.answers.pluck(:is_accepted).include?(true))
-          .col-xs-10.col-sm-11
+          .col-md-11
             h5= link_to question.title, question
             p= truncate(markdown_to_text(question.body), length: 200)
             .row
-              .col-xs-9
+              .col-md-9
                 = tag_list(question) if question.tags.present?
-              .col-xs-3
+              .col-md-3
                 = created_by_block(question)

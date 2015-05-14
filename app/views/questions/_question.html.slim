@@ -11,9 +11,9 @@
           - @question.attachments.each do |a|
             = link_to icon_by_filename(a.file.identifier), a.file.url, class: 'btn btn-link'
   .row
-    .col-xs-8.col-xs-offset-1
+    .col-md-8.col-md-offset-1
       = tag_list(@question) if @question.tags.present?
-    .col-xs-3
+    .col-md-3
       = created_by_block(@question)
   - if can? :manage, @question
     .panel-footer    
