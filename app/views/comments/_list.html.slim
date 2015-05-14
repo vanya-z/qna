@@ -1,6 +1,7 @@
 - parent_class, parent_id = parent.class.to_s.downcase, parent.id
 .comments class="#{parent_class}-#{parent_id}"
   = render parent.comments
+  #new_comments
   - if signed_in?
     .row
       .col-xs-12

@@ -4,8 +4,7 @@
   <% end %>
 <% else %>
   <% publish_to "/question#{ @comment.commentable_type.to_s == 'Question' ? @comment.commentable_id : @comment.commentable.question_id }" do %>
-    $('.comments.<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %>').html('<%= j render 'comments/list', parent: @comment.commentable %>');
+    $('#comment_body_<%= @comment.id %>').replaceWith('<%= j render 'comments/comment_new', comment: @comment %>');
   <% end %>
-  $(document).ready(comment);
-  $(document).on('page:load', comment);
+  $('.comments.<%= @comment.commentable_type.downcase %>-<%= @comment.commentable_id %>').html('<%= j render 'comments/list', parent: @comment.commentable %>');
 <% end %>

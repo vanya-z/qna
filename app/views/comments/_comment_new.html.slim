@@ -1,0 +1,4 @@
+ul.nav.nav-tabs.pv-3 id="comment_body_#{comment.id}"
+  = "#{comment.body} – "
+  = link_to_author(comment)
+  span.text-muted= ' ' + created_at(comment)
