@@ -18,3 +18,5 @@ production:
   min_word_len: 3
   html_strip: true
   mysql41: 9313
+test:
+  mysql41: 9307
