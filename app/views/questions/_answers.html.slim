@@ -1,26 +1,3 @@
 h4 #{pluralize(@question.answers_count, 'Answer')}
-- @question.answers.each do |answer|
-  .mt-20
-    - if answer.persisted?
-      div class="panel panel-#{ answer.is_accepted ? 'success' : 'default' } panel-condensed" id="answer_body_#{answer.id}"
-        .panel-body
-          .col-xs-1.text-center
-            = render 'votes/voting', votable: answer
-            -if answer.is_accepted?
-              .text-success title='The question owner accepted this as the best answer'
-                i.fa.fa-check-circle.fa-2x
-          .col-xs-11
-            p = markdown(answer.body)
-            p
-              - answer.attachments.each do |a|
-                = link_to icon_by_filename(a.file.identifier), a.file.url, class: 'btn btn-link'
-        .row
-          .col-xs-8.col-xs-offset-1
-            - if can? :manage, answer
-              = link_to 'Edit', edit_answer_path(answer), class: "btn btn-link"
-              = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-link', data: { confirm: "Are you sure?" }
-            = accept_discard_link(answer) if can? :manage, @question
-          .col-xs-3 = created_by_block(answer)
-      .row
-        .col-xs-11.col-xs-offset-1
-          = render 'comments/list', parent: answer
+= render @question.answers
+#new_answers

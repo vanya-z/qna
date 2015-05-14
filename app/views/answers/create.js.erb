@@ -4,10 +4,10 @@
   <% end %>
 <% else %>
   <% publish_to "/question#{@answer.question.id}" do %>
-    $('.answers').html('<%= j render 'questions/answers' %>');
+    $('#new_answers').append('<%= j render(partial: 'answers/answer_new', locals: { answer: @answer }) %>');
   <% end %>
+  $('.answers').html('<%= j render 'questions/answers' %>');
   $('#create_answer_error').empty();
-  $('#answer_body').val('');
-  $(document).ready(ready);
-  $(document).on('page:load', ready);
+  $('#wmd-input-body').val('');
+  $('#wmd-preview-body').empty();
 <% end %>
