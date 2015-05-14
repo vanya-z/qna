@@ -1,7 +1,8 @@
 .row
   .col-md-12
+    h4.visible-xs-block = current_page?(root_path) || current_page?(questions_path) ? 'All Questions' : 'Tagged Questions'
     ul.nav.nav-tabs
-      h4.pull-left= current_page?(root_path) || current_page?(questions_path) ? 'All Questions' : 'Tagged Questions'
+      h4.pull-left.hidden-xs = current_page?(root_path) || current_page?(questions_path) ? 'All Questions' : 'Tagged Questions'
       li.pull-right class="#{ cookies[:sort] == 'unanswered' ? 'active' : nil }" = link_to 'unanswered', sort: 'unanswered'
       li.pull-right class="#{ cookies[:sort] == 'newest' ? 'active' : nil }" = link_to 'newest', sort: 'newest'
       li.pull-right class="#{ cookies[:sort] == 'votes' ? 'active' : nil }" = link_to 'votes', sort: 'votes'
@@ -10,11 +11,11 @@
     .row
       .col-md-12
         ul.nav.nav-tabs
-          .col-md-1.text-center.nopadding
+          .col-xs-2.col-sm-1.text-center.nopadding
             .text-muted
               = votes_stat(question)
             .answer-stat= answers_count(question.answers_count, question.answers.pluck(:is_accepted).include?(true))
-          .col-md-11
+          .col-xs-10.col-sm-11
             h5= link_to question.title, question
             p= truncate(markdown_to_text(question.body), length: 200)
             .row
