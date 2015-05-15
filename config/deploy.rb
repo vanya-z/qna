@@ -24,9 +24,9 @@ namespace :deploy do
       invoke 'unicorn:restart'
     end
   end
-
-  after :publishing, :restart
 end
+
+set :thin_pid, -> { "#{current_path}/tmp/pids/thin.pid" }
 
 namespace :private_pub do
   desc 'Start private_pub server'
@@ -34,7 +34,7 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml start"
+          execute :bundle, "exec thin -C config/private_pub_thin.yml -d -P #{fetch(:thin_pid)} start"
         end
       end
     end
@@ -45,7 +45,7 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml stop"
+          execute "if [ -f #{fetch(:thin_pid)} ] && [ -e /proc/$(cat #{fetch(:thin_pid)}) ]; then kill -9 `cat #{fetch(:thin_pid)}`; fi"
         end
       end
     end
@@ -56,9 +56,12 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml restart"
+          stop
+          start
         end
       end
     end
   end
 end
+
+after 'deploy:restart', 'private_pub:restart'
