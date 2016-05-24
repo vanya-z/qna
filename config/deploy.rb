@@ -1,6 +1,6 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
-set :rvm_ruby_version, '2.2.0'      # Defaults to: 'default'
+set :rvm_ruby_version, '2.3.0'      # Defaults to: 'default'
 
 set :application, 'qna'
 set :repo_url, 'git@github.com:vanya-z/qna.git'
